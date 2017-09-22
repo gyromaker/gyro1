@@ -9,7 +9,7 @@ cd $GYROCACHE
 git clone https://github.com/openstack/horizon -b stable/ocata --depth=1
 
 rm -rf $HORIZON
-rsync -a $GYROCACHE/horizon /usr/local/
+cp -a $GYROCACHE/horizon /usr/local/
 
 cd $HORIZON
 pip install -c http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=stable/ocata .
