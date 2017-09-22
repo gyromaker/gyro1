@@ -25,6 +25,6 @@ touch openstack_dashboard/local/.secret_key_store
 chown apache. openstack_dashboard/local/.secret_key_store
 chmod 0600 openstack_dashboard/local/.secret_key_store
 
-cp horizon.conf /etc/httpd/conf.d/horizon.conf
+cp $GYRO/horizon.conf /etc/httpd/conf.d/horizon.conf
 systemctl restart httpd
 
