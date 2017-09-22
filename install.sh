@@ -1,7 +1,7 @@
 if [ -z "$BASH_VERSION" ]; then exec bash -x "$0" "$@"; fi
 
-GYRO=/usr/local/gyro1
-GYROCACHE=/usr/local/gyro1/cache
+GYRO=$(cd "$(dirname "$0")" && pwd)
+GYROCACHE=$GYRO/cache
 HORIZON=/usr/local/horizon
 
 mkdir -p $GYROCACHE
