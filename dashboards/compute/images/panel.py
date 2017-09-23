@@ -19,7 +19,7 @@
 from django.utils.translation import ugettext_lazy as _
 
 import horizon
-
+from openstack_dashboard.dashboards.compute import dashboard
 
 class Images(horizon.Panel):
     name = _("Images")
@@ -27,3 +27,6 @@ class Images(horizon.Panel):
     permissions = ('openstack.services.image',)
     policy_rules = ((("image", "context_is_admin"),
                      ("image", "get_images")),)
+
+dashboard.Compute.register(Images)
+

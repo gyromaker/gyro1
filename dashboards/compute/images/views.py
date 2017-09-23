@@ -40,7 +40,6 @@ from openstack_dashboard.dashboards.compute.images \
 
 LOG = logging.getLogger(__name__)
 
-
 class IndexView(tables.DataTableView):
     DEFAULT_FILTERS = {'is_public': None}
     table_class = project_tables.AdminImagesTable
