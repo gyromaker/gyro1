@@ -485,10 +485,11 @@ TIME_ZONE = "UTC"
 # Change this patch to the appropriate list of tuples containing
 # a key, label and static directory containing two files:
 # _variables.scss and _styles.scss
-#AVAILABLE_THEMES = [
-#    ('default', 'Default', 'themes/default'),
-#    ('material', 'Material', 'themes/material'),
-#]
+AVAILABLE_THEMES = [
+    ('default', 'Default', 'themes/default'),
+    ('material', 'Material', 'themes/material'),
+    ('gyroview', 'Gyroview', 'themes/gyroview'),
+]
 
 LOGGING = {
     'version': 1,

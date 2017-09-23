@@ -13,8 +13,19 @@ cp -a $GYROCACHE/horizon /usr/local/
 
 cd $HORIZON
 pip install -c http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=stable/ocata .
+
+
 cd $HORIZON/openstack_dashboard/local/
 ln -rs $GYRO/local_settings.py .
+
+cd $HORIZON/openstack_dashboard/themes/
+ln -rs $GYRO/themes/gyroview .
+
+cd $HORIZON/openstack_dashboard/
+mv dashboards dashboards.orig
+ln -rs $GYRO/dashboards .
+mv enabled enabled.orig
+ln -rs $GYRO/enabled .
 
 cd $HORIZON
 ./manage.py compilemessages
