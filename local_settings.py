@@ -847,3 +847,14 @@ ALLOWED_PRIVATE_SUBNET_CIDR = {'ipv4': [], 'ipv6': []}
 #USER_TABLE_EXTRA_INFO = {
 #   'phone_num': _('Phone Number'),
 #}
+
+
+# Dictionary of currently available angular features
+ANGULAR_FEATURES = {
+    'images_panel': False,
+    'flavors_panel': False,
+    'users_panel': False,
+    'roles_panel': False,
+    'domains_panel': False
+}
+
