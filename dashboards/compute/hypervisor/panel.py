@@ -18,6 +18,7 @@ from openstack_dashboard.dashboards.compute import dashboard
 class Hypervisor(horizon.Panel):
     name = _("Hypervisor")
     slug = "hypervisor"
-
+    permissions = ('openstack.services.compute',)
+    policy_rules = (("compute", "compute_extension:hypervisor"),)
 
 dashboard.Compute.register(Hypervisor)

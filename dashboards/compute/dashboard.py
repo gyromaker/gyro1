@@ -12,13 +12,26 @@
 
 from django.utils.translation import ugettext_lazy as _
 
+from openstack_auth import utils
+
 import horizon
 
+from django.conf import settings
 
 class Compute(horizon.Dashboard):
     name = _("Compute")
     slug = "compute"
     default_panel = 'hypervisor'  # Specify the slug of the dashboard's default panel.
 
+#	if getattr(settings, 'POLICY_CHECK_FUNCTION', None):
+#    policy_rules =     (('identity', 'admin_required'),
+#                        ('image', 'context_is_admin'),
+#                        ('volume', 'context_is_admin'),
+#                        ('compute', 'context_is_admin'),
+#                        ('network', 'context_is_admin'),
+#                        ('orchestration', 'context_is_admin'),)
+#    else:
+#        permissions = (tuple(utils.get_admin_permissions()),)
+#
 
 horizon.register(Compute)
