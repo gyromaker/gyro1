@@ -18,6 +18,13 @@ from openstack_dashboard.dashboards.manager import dashboard
 class Users(horizon.Panel):
     name = _("Users")
     slug = "users"
+    policy_rules = (("identity", "identity:get_user"),
+                    ("identity", "identity:list_users"))
 
+#    def can_access(self, context):
+#        if keystone.is_multi_domain_enabled() \
+#                and not keystone.is_domain_admin(context['request']):
+#            return False
+#        return super(Users, self).can_access(context)
 
 dashboard.Manager.register(Users)

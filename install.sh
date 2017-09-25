@@ -27,6 +27,10 @@ ln -rs $GYRO/dashboards .
 mv enabled enabled.orig
 ln -rs $GYRO/enabled .
 
+cd $HORIZON/openstack_dashboard/static/dashboard/
+mv img img.orig
+ln -rs $GYRO/img .
+
 cd $HORIZON
 ./manage.py compilemessages
 ./manage.py collectstatic --noinput

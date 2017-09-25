@@ -18,6 +18,7 @@ from openstack_dashboard.dashboards.manager import dashboard
 class Project(horizon.Panel):
     name = _("Project")
     slug = "project"
-
+    policy_rules = (("identity", "identity:list_projects"),
+                    ("identity", "identity:list_user_projects"))
 
 dashboard.Manager.register(Project)

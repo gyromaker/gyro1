@@ -18,6 +18,9 @@ from openstack_dashboard.dashboards.compute import dashboard
 class Template(horizon.Panel):
     name = _("Template")
     slug = "template"
+    permissions = ('openstack.services.image',)
+    policy_rules = ((("image", "context_is_admin"),
+                     ("image", "get_images")),)
 
 
 dashboard.Compute.register(Template)
