@@ -1,2 +1,6 @@
 @import "bootstrap/styles";
 @import "horizon/styles";
+
+body :not(.fa) {
+  font-family: "맑은 고딕";
+}
