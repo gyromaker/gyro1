@@ -15,6 +15,7 @@ cd $HORIZON
 #rm -rf .git
 pip install -c http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=stable/ocata .
 
+ln -rs $GYRO/update.sh .
 
 cd $HORIZON/openstack_dashboard/local/
 ln -rs $GYRO/local_settings.py .
