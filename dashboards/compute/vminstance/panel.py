@@ -16,7 +16,7 @@ import horizon
 from openstack_dashboard.dashboards.compute import dashboard
 
 class Vminstance(horizon.Panel):
-    name = _("Vminstance")
+    name = _("VM")
     slug = "vminstance"
     permissions = ('openstack.services.compute',)
 

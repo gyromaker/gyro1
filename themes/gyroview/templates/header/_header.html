@@ -2,6 +2,8 @@
 {% load context_selection %}
 {% load themes %}
 
+{% include "header/_custom_styles.html" %}
+
 <nav class="navbar-inverse material-header navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -21,9 +23,31 @@
       </div>
       {% include "header/_brand.html" %}
     </div>
+<style>
+.topmenu {
+	float: left;
+}
+.topmenu > a {
+	float: left;
+	position: relative;
+	display: block;
+	color: #fff;
+	font-weight: bold;
+	padding: 19.5px 22px 19.5px 22px;
+	text-decoration: none;
+}
+.topmenu > a:hover {
+	background-color: #00a379;
+}
+</style>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="navbar-collapse">
+	  <div class="topmenu">
+        <a href='/dashboard/compute/'>컴퓨트</a>
+        <a href='/dashboard/network/'>네트워크</a>
+        <a href='/dashboard/manager/'>관리자</a>
+	  </div>
+	    
       <ul class="nav navbar-nav">
         {% include "header/_context_selection.html" %}
       </ul>
