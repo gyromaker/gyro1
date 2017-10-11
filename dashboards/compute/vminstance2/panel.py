@@ -25,7 +25,5 @@ class Vminstance2(horizon.Panel):
     permissions = ('openstack.services.compute',)
     policy_rules = ((("compute", "context_is_not_admin"),
                      ("compute", "os_compute_api:servers:detail")),)
-
-	#policy_rules = (("vminstance2", "context_is_not_admin"),)
 	
 dashboard.Compute.register(Vminstance2)

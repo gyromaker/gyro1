@@ -29,6 +29,9 @@ ln -rs $GYRO/dashboards .
 mv enabled enabled.orig
 ln -rs $GYRO/enabled .
 
+mv conf conf.orig
+ln -rs $GYRO/conf .
+
 cd $HORIZON/openstack_dashboard/static/dashboard/
 mv img img.orig
 ln -rs $GYRO/img .
