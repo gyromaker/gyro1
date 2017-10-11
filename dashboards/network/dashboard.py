@@ -20,5 +20,4 @@ class Network(horizon.Dashboard):
     slug = "network"
     default_panel = 'securitygroups'  # Specify the slug of the dashboard's default panel.
 
-
 horizon.register(Network)
