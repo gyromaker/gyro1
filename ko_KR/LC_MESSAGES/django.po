@@ -29,6 +29,9 @@ msgstr ""
 "X-Generator: Zanata 3.9.6\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
+msgid "Networks2"
+msgstr "네트워크"
+
 msgid "Volume2"
 msgstr "볼륨"
 
