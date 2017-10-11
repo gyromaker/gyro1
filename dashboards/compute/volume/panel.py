@@ -18,6 +18,9 @@ from openstack_dashboard.dashboards.compute import dashboard
 class Volume(horizon.Panel):
     name = _("Volume")
     slug = "volume"
-
+    permissions = (
+        ('openstack.services.volume', 'openstack.services.volumev2'),
+    )
+    policy_rules = (("volume", "context_is_admin"),)
 
 dashboard.Compute.register(Volume)

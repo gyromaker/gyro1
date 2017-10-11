@@ -18,6 +18,7 @@ from openstack_dashboard.dashboards.compute import dashboard
 class Vminstance(horizon.Panel):
     name = _("VM")
     slug = "vminstance"
+    policy_rules = ((("compute", "context_is_admin"),))
     permissions = ('openstack.services.compute',)
-
+					 
 dashboard.Compute.register(Vminstance)

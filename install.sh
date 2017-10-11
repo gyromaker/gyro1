@@ -33,6 +33,10 @@ cd $HORIZON/openstack_dashboard/static/dashboard/
 mv img img.orig
 ln -rs $GYRO/img .
 
+cd $HORIZON/openstack_dashboard/locale/
+mv ko_KR ko_KR.orig
+ln -rs $GYRO/ko_KR .
+
 cd $HORIZON
 ./manage.py compilemessages
 ./manage.py collectstatic --noinput

@@ -13,7 +13,7 @@
 from django.utils.translation import ugettext_lazy as _
 
 import horizon
-from openstack_dashboard.dashboards.compute import dashboard
+#from openstack_dashboard.dashboards.compute import dashboard
 
 class Template(horizon.Panel):
     name = _("Template")
@@ -23,4 +23,4 @@ class Template(horizon.Panel):
                      ("image", "get_images")),)
 
 
-dashboard.Compute.register(Template)
+#dashboard.Compute.register(Template)
