@@ -1,22 +1,31 @@
-# Licensed under the Apache License, Version 2.0 (the "License"); you may
-# not use this file except in compliance with the License. You may obtain
-# a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-# License for the specific language governing permissions and limitations
-# under the License.
+import os
+import json
+import logging
+from horizon import tables
+from .tables import HypervisorTable
 
-from horizon import views
+class Hypervisor:
+    def __init__(self, id, hostname, hostIp, state, type):
+        self.id = id
+        self.hostname = hostname
+        self.hostIp = hostIp
+        self.state = state
+        self.type = type
 
-
-class IndexView(views.APIView):
-    # A very simple class-based view...
+class IndexView(tables.DataTableView):
+    table_class = HypervisorTable
     template_name = 'mydashboard/mypanel/index.html'
+    
+    def get_data(self):
+        logger = logging.getLogger(__name__)
+        logger.error("Hello----------------------------")
+        #json_str = os.popen('sh /usr/local/gyro1/scripts/hypervisor.list.sh').read()
+        json_str = '[{"Hypervisor Hostname": "controller.openstack.test", "Host IP": "192.168.56.101", "State": "smile", "ID": 1, "Hypervisor Type": "QEMU"},{"Hypervisor Hostname": "controller.openstack.test2", "Host IP": "192.168.56.102", "State": "happy", "ID": 2, "Hypervisor Type": "QEMU"}]'
+        logger.error(json_str)
+        logger.error("World--------------------------------------------------------")
+        rows = json.loads(json_str)
+        hypervisors = []
+        for row in rows:
+            hypervisors.append(Hypervisor(row['ID'], row['Hypervisor Hostname'], row['Host IP'], row['State'], row['Hypervisor Type']))
+        return hypervisors
 
-    def get_data(self, request, context, *args, **kwargs):
-        # Add data to the context here...
-        return context

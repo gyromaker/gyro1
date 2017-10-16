@@ -20,4 +20,9 @@ class Network(horizon.Dashboard):
     slug = "network"
     default_panel = 'securitygroups'  # Specify the slug of the dashboard's default panel.
 
+    def can_access(self, context):
+        request = context['request']
+        has_project = request.user.token.project.get('id') is not None
+        return super(Network, self).can_access(context) and has_project
+
 horizon.register(Network)

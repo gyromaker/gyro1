@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% block title %}{% trans "Mypanel" %}{% endblock %}
-
+{% block title %}{% trans "Hypervisors" %}{% endblock %}
+ 
 {% block page_header %}
-  {% include "horizon/common/_page_header.html" with title=_("Mypanel") %}
+  {% include "horizon/common/_page_header.html" with title=_("Hypervisors") %}
 {% endblock page_header %}
-
+ 
 {% block main %}
+  {{ table.render }}
 {% endblock %}
-
-

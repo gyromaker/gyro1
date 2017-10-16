@@ -1,24 +1,13 @@
 from django.utils.translation import ugettext_lazy as _
-
 from horizon import tables
 
-
-class MyFilterAction(tables.FilterAction):
-    name = "myfilter"
-
-
-class InstancesTable(tables.DataTable):
-    name = tables.Column('name', \
-                         verbose_name=_("Name"))
-    status = tables.Column('status', \
-                           verbose_name=_("Status"))
-    zone = tables.Column('availability_zone', \
-                         verbose_name=_("Availability Zone"))
-    image_name = tables.Column('image_name', \
-                               verbose_name=_("Image Name"))
-
-    class Meta(object):
-        name = "instances"
-        verbose_name = _("Instances")
-        table_actions = (MyFilterAction,)
+class HypervisorTable(tables.DataTable):
+    id = tables.Column("id", verbose_name=_("ID"))
+    hostname = tables.Column("hostname", verbose_name=_("Hostname"))
+    hostIp = tables.Column("hostIp", verbose_name=_("Host IP"))
+    state = tables.Column("state", verbose_name=_("State"))
+    type = tables.Column("type", verbose_name=_("Type"))
+    class Meta:
+        name = "hypervisortable"
+        verbose_name = _("HypervisorTable")
 

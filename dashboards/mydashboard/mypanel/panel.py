@@ -7,4 +7,3 @@ class Mypanel(horizon.Panel):
     slug = "mypanel"
 
 dashboard.Mydashboard.register(Mypanel)
-
