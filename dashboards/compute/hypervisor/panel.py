@@ -19,6 +19,7 @@ class Hypervisor(horizon.Panel):
     name = _("Hypervisor")
     slug = "hypervisor"
     permissions = ('openstack.services.compute',)
-    policy_rules = (("compute", "compute_extension:hypervisor"),)
+    policy_rules = ((("compute", "context_is_admin"),
+					("compute", "compute_extension:hypervisor")),)
 
 dashboard.Compute.register(Hypervisor)

@@ -10,14 +10,10 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from django.utils.translation import ugettext_lazy as _
+from horizon.test import helpers as test
 
-import horizon
-from openstack_dashboard.dashboards.network import dashboard
 
-class Securitygroups(horizon.Panel):
-    name = _("Securitygroups")
-    slug = "securitygroups"
-    policy_rules = (("network", "context_is_admin"),)
-
-dashboard.Network.register(Securitygroups)
+class MypanelTests(test.TestCase):
+    # Unit tests for mypanel.
+    def test_me(self):
+        self.assertTrue(1 + 1 == 2)

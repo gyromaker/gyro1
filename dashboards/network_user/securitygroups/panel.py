@@ -13,11 +13,11 @@
 from django.utils.translation import ugettext_lazy as _
 
 import horizon
-from openstack_dashboard.dashboards.network import dashboard
+from openstack_dashboard.dashboards.network_user import dashboard
 
 class Securitygroups(horizon.Panel):
     name = _("Securitygroups")
     slug = "securitygroups"
-    policy_rules = (("network", "context_is_admin"),)
+    policy_rules = (("network", "context_is_not_admin"),)
 
-dashboard.Network.register(Securitygroups)
+dashboard.NetworkUser.register(Securitygroups)

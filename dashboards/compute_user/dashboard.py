@@ -20,10 +20,10 @@ import logging
 
 from django.conf import settings
 
-class Compute(horizon.Dashboard):
+class ComputeUser(horizon.Dashboard):
     name = _("Compute")
-    slug = "compute"
-    default_panel = 'hypervisor'
+    slug = "compute_user"
+    default_panel = 'hypervisor2'
 
 #	if getattr(settings, 'POLICY_CHECK_FUNCTION', None):
 #    policy_rules =     (('identity', 'admin_required'),
@@ -36,4 +36,4 @@ class Compute(horizon.Dashboard):
 #        permissions = (tuple(utils.get_admin_permissions()),)
 #
 
-horizon.register(Compute)
+horizon.register(ComputeUser)

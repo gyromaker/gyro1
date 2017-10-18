@@ -13,11 +13,16 @@
 from django.utils.translation import ugettext_lazy as _
 
 import horizon
-from openstack_dashboard.dashboards.network import dashboard
 
-class Securitygroups(horizon.Panel):
-    name = _("Securitygroups")
-    slug = "securitygroups"
-    policy_rules = (("network", "context_is_admin"),)
 
-dashboard.Network.register(Securitygroups)
+class NetworkUser(horizon.Dashboard):
+    name = _("Network")
+    slug = "network_user"
+    default_panel = 'securitygroups'  # Specify the slug of the dashboard's default panel.
+
+    def can_access(self, context):
+        request = context['request']
+        has_project = request.user.token.project.get('id') is not None
+        return super(NetworkUser, self).can_access(context) and has_project
+
+horizon.register(NetworkUser)

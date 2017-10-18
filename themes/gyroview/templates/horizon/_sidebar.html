@@ -3,7 +3,7 @@
 <div class="sidebar-wrapper">
   <ul id="sidebar-drawer" class="nav nav-pills nav-stacked">
     {% for dashboard, panel_info in components %}
-      {% if dashboard.slug == request.path|slice:"11:18" and dashboard.slug != "project" and dashboard.slug != "identity" and dashboard.slug != "admin" and user|has_permissions:dashboard %}
+      {% if dashboard.slug == request.path|slice:"11:18" or dashboard.slug == request.path|slice:"11:23" and dashboard.slug != "project" and dashboard.slug != "identity" and dashboard.slug != "admin" and user|has_permissions:dashboard %}
         <li class="openstack-dashboard">
           <a data-toggle="collapse"
              data-parent="#sidebar-drawer"

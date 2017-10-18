@@ -10,14 +10,16 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from django.utils.translation import ugettext_lazy as _
+from django.conf.urls import url
 
-import horizon
-from openstack_dashboard.dashboards.network import dashboard
+from openstack_dashboard.dashboards.compute_user.volume2.backups import views
 
-class Securitygroups(horizon.Panel):
-    name = _("Securitygroups")
-    slug = "securitygroups"
-    policy_rules = (("network", "context_is_admin"),)
 
-dashboard.Network.register(Securitygroups)
+urlpatterns = [
+    url(r'^(?P<backup_id>[^/]+)/$',
+        views.BackupDetailView.as_view(),
+        name='detail'),
+    url(r'^(?P<backup_id>[^/]+)/restore/$',
+        views.RestoreBackupView.as_view(),
+        name='restore'),
+]

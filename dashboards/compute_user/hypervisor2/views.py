@@ -14,7 +14,7 @@ class Hypervisor:
 
 class IndexView(tables.DataTableView):
     table_class = HypervisorTable
-    template_name = 'mydashboard/mypanel/index.html'
+    template_name = 'compute_user/hypervisor2/index.html'
     
     def get_data(self):
         logger = logging.getLogger(__name__)
