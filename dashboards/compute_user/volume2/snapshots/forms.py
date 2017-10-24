@@ -40,7 +40,7 @@ class UpdateForm(forms.SelfHandlingForm):
             messages.info(request, message)
             return True
         except Exception:
-            redirect = reverse("horizon:compute:volume2:index")
+            redirect = reverse("horizon:compute_user:volume2:index")
             exceptions.handle(request,
                               _('Unable to update volume snapshot.'),
                               redirect=redirect)

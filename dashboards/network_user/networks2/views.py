@@ -83,9 +83,9 @@ class UpdateView(forms.ModalFormView):
     form_class = project_forms.UpdateNetwork
     form_id = "update_network_form"
     submit_label = _("Save Changes")
-    submit_url = "horizon:network:networks2:update"
-    success_url = reverse_lazy("horizon:network:networks2:index")
-    template_name = 'network/networks2/update.html'
+    submit_url = "horizon:network_user:networks2:update"
+    success_url = reverse_lazy("horizon:network_user:networks2:index")
+    template_name = 'network_user/networks2/update.html'
     page_title = _("Update Network")
 
     def get_context_data(self, **kwargs):
@@ -124,7 +124,7 @@ class DetailView(tabs.TabbedTableView):
 
     @staticmethod
     def get_redirect_url():
-        return reverse('horizon:network:networks2:index')
+        return reverse('horizon:network_user:networks2:index')
 
     @memoized.memoized_method
     def _get_data(self):

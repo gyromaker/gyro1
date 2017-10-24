@@ -32,7 +32,7 @@ from openstack_dashboard.utils import filters
 class OverviewTab(tabs.Tab):
     name = _("Overview")
     slug = "overview"
-    template_name = ("network/networks2/_detail_overview.html")
+    template_name = ("network_user/networks2/_detail_overview.html")
     preload = False
 
     @memoized.memoized_method

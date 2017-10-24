@@ -44,10 +44,10 @@ class CreateView(forms.ModalFormView):
     form_class = project_forms.CreateImageForm
     form_id = "create_image_form"
     submit_label = _("Create Image")
-    submit_url = reverse_lazy('horizon:compute:images2:images:create')
-    template_name = 'compute/images2/images/create.html'
+    submit_url = reverse_lazy('horizon:compute_user:images2:images:create')
+    template_name = 'compute_user/images2/images/create.html'
     context_object_name = 'image'
-    success_url = reverse_lazy("horizon:compute:images2:index")
+    success_url = reverse_lazy("horizon:compute_user:images2:index")
     page_title = _("Create An Image")
 
     def get_initial(self):
@@ -81,9 +81,9 @@ class UpdateView(forms.ModalFormView):
     form_class = project_forms.UpdateImageForm
     form_id = "update_image_form"
     submit_label = _("Edit Image")
-    submit_url = "horizon:compute:images2:images:update"
-    template_name = 'compute/images2/images/update.html'
-    success_url = reverse_lazy("horizon:compute:images2:index")
+    submit_url = "horizon:compute_user:images2:images:update"
+    template_name = 'compute_user/images2/images/update.html'
+    success_url = reverse_lazy("horizon:compute_user:images2:index")
     page_title = _("Edit Image")
 
     @memoized.memoized_method
@@ -92,7 +92,7 @@ class UpdateView(forms.ModalFormView):
             return api.glance.image_get(self.request, self.kwargs['image_id'])
         except Exception:
             msg = _('Unable to retrieve image.')
-            url = reverse('horizon:compute:images2:index')
+            url = reverse('horizon:compute_user:images2:index')
             exceptions.handle(self.request, msg, redirect=url)
 
     def get_context_data(self, **kwargs):
@@ -141,7 +141,7 @@ class DetailView(tabs.TabView):
 
     @staticmethod
     def get_redirect_url():
-        return reverse_lazy('horizon:compute:images2:index')
+        return reverse_lazy('horizon:compute_user:images2:index')
 
     @memoized.memoized_method
     def get_data(self):

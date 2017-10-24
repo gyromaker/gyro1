@@ -25,7 +25,7 @@ from openstack_dashboard.dashboards.network_user.networks2.subnets \
 class OverviewTab(tabs.Tab):
     name = _("Overview")
     slug = "overview"
-    template_name = "network/networks2/subnets/_detail_overview.html"
+    template_name = "network_user/networks2/subnets/_detail_overview.html"
 
     def get_context_data(self, request):
         subnet = self.tab_group.kwargs['subnet']

@@ -19,9 +19,9 @@ from openstack_dashboard.api import cinder
 from openstack_dashboard.test import helpers as test
 
 
-VOLUME_INDEX_URL = reverse('horizon:compute:volume2:index')
+VOLUME_INDEX_URL = reverse('horizon:compute_user:volume2:index')
 VOLUME_CG_SNAPSHOTS_TAB_URL = urlunquote(reverse(
-    'horizon:compute:volume2:cg_snapshots_tab'))
+    'horizon:compute_user:volume2:cg_snapshots_tab'))
 
 
 class CGroupSnapshotTests(test.TestCase):
@@ -44,7 +44,7 @@ class CGroupSnapshotTests(test.TestCase):
             .AndReturn(cgroup)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cg_snapshots:create_cgroup',
+        url = reverse('horizon:compute_user:volume2:cg_snapshots:create_cgroup',
                       args=[cg_snapshot.id])
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
@@ -69,7 +69,7 @@ class CGroupSnapshotTests(test.TestCase):
             .AndRaise(self.exceptions.cinder)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cg_snapshots:create_cgroup',
+        url = reverse('horizon:compute_user:volume2:cg_snapshots:create_cgroup',
                       args=[cg_snapshot.id])
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
@@ -143,7 +143,7 @@ class CGroupSnapshotTests(test.TestCase):
         self.mox.ReplayAll()
 
         url = reverse(
-            'horizon:compute:volume2:cg_snapshots:cg_snapshot_detail',
+            'horizon:compute_user:volume2:cg_snapshots:cg_snapshot_detail',
             args=[cg_snapshot.id])
         res = self.client.get(url)
         self.assertNoFormErrors(res)
@@ -159,7 +159,7 @@ class CGroupSnapshotTests(test.TestCase):
         self.mox.ReplayAll()
 
         url = reverse(
-            'horizon:compute:volume2:cg_snapshots:cg_snapshot_detail',
+            'horizon:compute_user:volume2:cg_snapshots:cg_snapshot_detail',
             args=[cg_snapshot.id])
         res = self.client.get(url)
         self.assertNoFormErrors(res)

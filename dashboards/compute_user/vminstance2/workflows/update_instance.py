@@ -133,7 +133,7 @@ class UpdateInstance(workflows.Workflow):
     finalize_button_name = _("Save")
     success_message = _('Modified instance "%s".')
     failure_message = _('Unable to modify instance "%s".')
-    success_url = "horizon:compute:vminstance2:index"
+    success_url = "horizon:compute_user:vminstance2:index"
     default_steps = (UpdateInstanceInfo,
                      UpdateInstanceSecurityGroups)
 

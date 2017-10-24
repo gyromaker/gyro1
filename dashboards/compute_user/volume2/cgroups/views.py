@@ -36,21 +36,21 @@ from openstack_dashboard.dashboards.compute_user.volume2 \
 CGROUP_INFO_FIELDS = ("name",
                       "description")
 
-INDEX_URL = "horizon:compute:volume2:index"
+INDEX_URL = "horizon:compute_user:volume2:index"
 
 
 class CreateView(workflows.WorkflowView):
     workflow_class = vol_cgroup_workflows.CreateCGroupWorkflow
-    template_name = 'compute/volume2/cgroups/create.html'
+    template_name = 'compute_user/volume2/cgroups/create.html'
     page_title = _("Create Volume Consistency Group")
 
 
 class UpdateView(forms.ModalFormView):
-    template_name = 'compute/volume2/cgroups/update.html'
+    template_name = 'compute_user/volume2/cgroups/update.html'
     page_title = _("Edit Consistency Group")
     form_class = vol_cgroup_forms.UpdateForm
-    success_url = reverse_lazy('horizon:compute:volume2:index')
-    submit_url = "horizon:compute:volume2:cgroups:update"
+    success_url = reverse_lazy('horizon:compute_user:volume2:index')
+    submit_url = "horizon:compute_user:volume2:cgroups:update"
 
     def get_initial(self):
         cgroup = self.get_object()
@@ -78,11 +78,11 @@ class UpdateView(forms.ModalFormView):
 
 
 class RemoveVolumesView(forms.ModalFormView):
-    template_name = 'compute/volume2/cgroups/remove_vols.html'
+    template_name = 'compute_user/volume2/cgroups/remove_vols.html'
     page_title = _("Remove Volumes from Consistency Group")
     form_class = vol_cgroup_forms.RemoveVolsForm
-    success_url = reverse_lazy('horizon:compute:volume2:index')
-    submit_url = "horizon:compute:volume2:cgroups:remove_volumes"
+    success_url = reverse_lazy('horizon:compute_user:volume2:index')
+    submit_url = "horizon:compute_user:volume2:cgroups:remove_volumes"
 
     def get_initial(self):
         cgroup = self.get_object()
@@ -109,11 +109,11 @@ class RemoveVolumesView(forms.ModalFormView):
 
 
 class DeleteView(forms.ModalFormView):
-    template_name = 'compute/volume2/cgroups/delete.html'
+    template_name = 'compute_user/volume2/cgroups/delete.html'
     page_title = _("Delete Consistency Group")
     form_class = vol_cgroup_forms.DeleteForm
-    success_url = reverse_lazy('horizon:compute:volume2:index')
-    submit_url = "horizon:compute:volume2:cgroups:delete"
+    success_url = reverse_lazy('horizon:compute_user:volume2:index')
+    submit_url = "horizon:compute_user:volume2:cgroups:delete"
     submit_label = page_title
 
     def get_initial(self):
@@ -170,10 +170,10 @@ class ManageView(workflows.WorkflowView):
 class CreateSnapshotView(forms.ModalFormView):
     form_class = vol_cgroup_forms.CreateSnapshotForm
     page_title = _("Create Consistency Group Snapshot")
-    template_name = 'compute/volume2/cgroups/create_snapshot.html'
+    template_name = 'compute_user/volume2/cgroups/create_snapshot.html'
     submit_label = _("Create Snapshot")
-    submit_url = "horizon:compute:volume2:cgroups:create_snapshot"
-    success_url = reverse_lazy('horizon:compute:volume2:cg_snapshots_tab')
+    submit_url = "horizon:compute_user:volume2:cgroups:create_snapshot"
+    success_url = reverse_lazy('horizon:compute_user:volume2:cg_snapshots_tab')
 
     def get_context_data(self, **kwargs):
         context = super(CreateSnapshotView, self).get_context_data(**kwargs)
@@ -212,10 +212,10 @@ class CreateSnapshotView(forms.ModalFormView):
 class CloneCGroupView(forms.ModalFormView):
     form_class = vol_cgroup_forms.CloneCGroupForm
     page_title = _("Clone Consistency Group")
-    template_name = 'compute/volume2/cgroups/clone_cgroup.html'
+    template_name = 'compute_user/volume2/cgroups/clone_cgroup.html'
     submit_label = _("Clone Consistency Group")
-    submit_url = "horizon:compute:volume2:cgroups:clone_cgroup"
-    success_url = reverse_lazy('horizon:compute:volume2:cgroups_tab')
+    submit_url = "horizon:compute_user:volume2:cgroups:clone_cgroup"
+    success_url = reverse_lazy('horizon:compute_user:volume2:cgroups_tab')
 
     def get_context_data(self, **kwargs):
         context = super(CloneCGroupView, self).get_context_data(**kwargs)
@@ -296,7 +296,7 @@ class DetailView(tabs.TabView):
 
     @staticmethod
     def get_redirect_url():
-        return reverse('horizon:compute:volume2:index')
+        return reverse('horizon:compute_user:volume2:index')
 
     def get_tabs(self, request, *args, **kwargs):
         cgroup = self.get_data()

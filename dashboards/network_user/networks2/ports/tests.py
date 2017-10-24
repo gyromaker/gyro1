@@ -23,10 +23,10 @@ from mox3.mox import IsA  # noqa
 from openstack_dashboard import api
 from openstack_dashboard.test import helpers as test
 
-DETAIL_URL = 'horizon:network:networks2:ports:detail'
+DETAIL_URL = 'horizon:network_user:networks2:ports:detail'
 
-NETWORKS_INDEX_URL = reverse('horizon:network:networks2:index')
-NETWORKS_DETAIL_URL = 'horizon:network:networks2:detail'
+NETWORKS_INDEX_URL = reverse('horizon:network_user:networks2:index')
+NETWORKS_DETAIL_URL = 'horizon:network_user:networks2:detail'
 
 
 class NetworkPortTests(test.TestCase):
@@ -98,11 +98,11 @@ class NetworkPortTests(test.TestCase):
             .AndReturn(mac_learning)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:network:networks2:editport',
+        url = reverse('horizon:network_user:networks2:editport',
                       args=[port.network_id, port.id])
         res = self.client.get(url)
 
-        self.assertTemplateUsed(res, 'network/networks2/ports/update.html')
+        self.assertTemplateUsed(res, 'network_user/networks2/ports/update.html')
 
     @test.create_stubs({api.neutron: ('port_get',
                                       'is_extension_supported',
@@ -146,7 +146,7 @@ class NetworkPortTests(test.TestCase):
             form_data['binding__vnic_type'] = port.binding__vnic_type
         if mac_learning:
             form_data['mac_state'] = True
-        url = reverse('horizon:network:networks2:editport',
+        url = reverse('horizon:network_user:networks2:editport',
                       args=[port.network_id, port.id])
         res = self.client.post(url, form_data)
 
@@ -197,7 +197,7 @@ class NetworkPortTests(test.TestCase):
             form_data['binding__vnic_type'] = port.binding__vnic_type
         if mac_learning:
             form_data['mac_state'] = True
-        url = reverse('horizon:network:networks2:editport',
+        url = reverse('horizon:network_user:networks2:editport',
                       args=[port.network_id, port.id])
         res = self.client.post(url, form_data)
 
@@ -221,7 +221,7 @@ class NetworkPortTests(test.TestCase):
             .AndReturn(network)
         self.mox.ReplayAll()
 
-        res = self.client.get(reverse('horizon:network:networks2:ports:detail',
+        res = self.client.get(reverse('horizon:network_user:networks2:ports:detail',
                                       args=[port.id]))
 
         self.assertTemplateUsed(res, 'horizon/common/_detail.html')
@@ -231,7 +231,7 @@ class NetworkPortTests(test.TestCase):
 
     @test.create_stubs({api.neutron: ('port_get', 'port_update')})
     def test_port_add_allowed_address_pair(self):
-        detail_path = 'horizon:network:networks2:ports:detail'
+        detail_path = 'horizon:network_user:networks2:ports:detail'
 
         pre_port = self.ports.first()
         post_port = copy.deepcopy(pre_port)
@@ -253,7 +253,7 @@ class NetworkPortTests(test.TestCase):
 
         form_data = {'ip': pair['ip_address'], 'mac': pair['mac_address'],
                      'port_id': pre_port.id}
-        url = reverse('horizon:network:networks2:ports:addallowedaddresspairs',
+        url = reverse('horizon:network_user:networks2:ports:addallowedaddresspairs',
                       args=[pre_port.id])
         res = self.client.post(url, form_data)
         self.assertNoFormErrors(res)
@@ -267,7 +267,7 @@ class NetworkPortTests(test.TestCase):
                 'mac_address': 'incorrect'}
         form_data = {'ip': pair['ip_address'], 'mac': pair['mac_address'],
                      'port_id': pre_port.id}
-        url = reverse('horizon:network:networks2:ports:addallowedaddresspairs',
+        url = reverse('horizon:network_user:networks2:ports:addallowedaddresspairs',
                       args=[pre_port.id])
         res = self.client.post(url, form_data)
         self.assertFormErrors(res, 1)
@@ -279,7 +279,7 @@ class NetworkPortTests(test.TestCase):
                 'mac_address': 'fa:16:4e:7a:7b:18'}
         form_data = {'ip': pair['ip_address'], 'mac': pair['mac_address'],
                      'port_id': pre_port.id}
-        url = reverse('horizon:network:networks2:ports:addallowedaddresspairs',
+        url = reverse('horizon:network_user:networks2:ports:addallowedaddresspairs',
                       args=[pre_port.id])
         res = self.client.post(url, form_data)
         self.assertFormErrors(res, 1)
@@ -288,7 +288,7 @@ class NetworkPortTests(test.TestCase):
     @test.create_stubs({api.neutron: ('port_get', 'port_update',
                                       'is_extension_supported',)})
     def test_port_remove_allowed_address_pair(self):
-        detail_path = 'horizon:network:networks2:ports:detail'
+        detail_path = 'horizon:network_user:networks2:ports:detail'
 
         pre_port = self.ports.first()
         post_port = copy.deepcopy(pre_port)

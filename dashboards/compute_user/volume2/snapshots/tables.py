@@ -52,7 +52,7 @@ class LaunchSnapshot(volume_tables.LaunchVolume):
 class LaunchSnapshotNG(LaunchSnapshot):
     name = "launch_snapshot_ng"
     verbose_name = _("Launch as Instance")
-    url = "horizon:compute:volume2:snapshots_tab"
+    url = "horizon:compute_user:volume2:snapshots_tab"
     classes = ("btn-launch", )
     ajax = False
 
@@ -102,7 +102,7 @@ class DeleteVolumeSnapshot(policy.PolicyTargetMixin, tables.DeleteAction):
 class EditVolumeSnapshot(policy.PolicyTargetMixin, tables.LinkAction):
     name = "edit"
     verbose_name = _("Edit Snapshot")
-    url = "horizon:compute:volume2:snapshots:update"
+    url = "horizon:compute_user:volume2:snapshots:update"
     classes = ("ajax-modal",)
     icon = "pencil"
     policy_rules = (("volume", "volume:update_snapshot"),)
@@ -116,7 +116,7 @@ class EditVolumeSnapshot(policy.PolicyTargetMixin, tables.LinkAction):
 class CreateVolumeFromSnapshot(tables.LinkAction):
     name = "create_from_snapshot"
     verbose_name = _("Create Volume")
-    url = "horizon:compute:volume2:volumes:create"
+    url = "horizon:compute_user:volume2:volumes:create"
     classes = ("ajax-modal",)
     icon = "camera"
     policy_rules = (("volume", "volume:create"),)
@@ -189,11 +189,11 @@ class VolumeSnapshotsTable(volume_tables.VolumesTableBase):
     name = tables.WrappingColumn(
         "name",
         verbose_name=_("Name"),
-        link="horizon:compute:volume2:snapshots:detail")
+        link="horizon:compute_user:volume2:snapshots:detail")
     volume_name = SnapshotVolumeNameColumn(
         "name",
         verbose_name=_("Volume Name"),
-        link="horizon:compute:volume2:volumes:detail")
+        link="horizon:compute_user:volume2:volumes:detail")
 
     class Meta(object):
         name = "volume_snapshots"

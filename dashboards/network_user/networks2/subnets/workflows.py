@@ -67,11 +67,11 @@ class CreateSubnet(network_workflows.CreateNetwork):
         return message % name
 
     def get_success_url(self):
-        return reverse("horizon:network:networks2:detail",
+        return reverse("horizon:network_user:networks2:detail",
                        args=(self.context.get('network_id'),))
 
     def get_failure_url(self):
-        return reverse("horizon:network:networks2:detail",
+        return reverse("horizon:network_user:networks2:detail",
                        args=(self.context.get('network_id'),))
 
     def handle(self, request, data):
@@ -154,8 +154,8 @@ class UpdateSubnet(network_workflows.CreateNetwork):
     finalize_button_name = _("Save")
     success_message = _('Updated subnet "%s".')
     failure_message = _('Unable to update subnet "%s".')
-    success_url = "horizon:network:networks2:detail"
-    failure_url = "horizon:network:networks2:detail"
+    success_url = "horizon:network_user:networks2:detail"
+    failure_url = "horizon:network_user:networks2:detail"
     default_steps = (UpdateSubnetInfo,
                      UpdateSubnetDetail)
 

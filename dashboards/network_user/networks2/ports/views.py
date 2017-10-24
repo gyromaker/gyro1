@@ -78,8 +78,8 @@ class DetailView(tabs.TabbedTableView):
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
         port = self.get_data()
-        network_url = "horizon:network:networks2:detail"
-        subnet_url = "horizon:network:networks2:subnets:detail"
+        network_url = "horizon:network_user:networks2:detail"
+        subnet_url = "horizon:network_user:networks2:subnets:detail"
         network = self.get_network(port.network_id)
         port.network_name = network.get('name')
         port.network_url = reverse(network_url, args=[port.network_id])
@@ -104,17 +104,17 @@ class DetailView(tabs.TabbedTableView):
 
     @staticmethod
     def get_redirect_url():
-        return reverse('horizon:network:networks2:index')
+        return reverse('horizon:network_user:networks2:index')
 
 
 class UpdateView(forms.ModalFormView):
     form_class = project_forms.UpdatePort
     form_id = "update_port_form"
-    template_name = 'network/networks2/ports/update.html'
+    template_name = 'network_user/networks2/ports/update.html'
     context_object_name = 'port'
     submit_label = _("Save Changes")
-    submit_url = "horizon:network:networks2:editport"
-    success_url = 'horizon:network:networks2:detail'
+    submit_url = "horizon:network_user:networks2:editport"
+    success_url = 'horizon:network_user:networks2:detail'
     page_title = _("Update Port")
 
     def get_success_url(self):

@@ -21,7 +21,7 @@ from horizon import tabs
 class OverviewTab(tabs.Tab):
     name = _("Overview")
     slug = "overview"
-    template_name = "compute/images2/images/_detail_overview.html"
+    template_name = "compute_user/images2/images/_detail_overview.html"
 
     def get_context_data(self, request):
         image = self.tab_group.kwargs['image']

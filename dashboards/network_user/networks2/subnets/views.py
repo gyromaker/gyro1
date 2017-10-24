@@ -46,7 +46,7 @@ class CreateView(DefaultSubnetWorkflowMixin, workflows.WorkflowView):
             network = api.neutron.network_get(self.request, network_id)
             return network
         except Exception:
-            redirect = reverse('horizon:network:networks2:index')
+            redirect = reverse('horizon:network_user:networks2:index')
             msg = _("Unable to retrieve network.")
             exceptions.handle(self.request, msg, redirect=redirect)
 
@@ -66,7 +66,7 @@ class UpdateView(workflows.WorkflowView):
         try:
             return api.neutron.subnet_get(self.request, subnet_id)
         except Exception:
-            redirect = reverse("horizon:network:networks2:index")
+            redirect = reverse("horizon:network_user:networks2:index")
             msg = _('Unable to retrieve subnet details')
             exceptions.handle(self.request, msg, redirect=redirect)
 
@@ -159,7 +159,7 @@ class DetailView(tabs.TabView):
         context["custom_breadcrumb"] = breadcrumb
         context["subnet"] = subnet
         context["url"] = \
-            reverse("horizon:network:networks2:subnets_tab", args=[network.id])
+            reverse("horizon:network_user:networks2:subnets_tab", args=[network.id])
         context["actions"] = table.render_row_actions(subnet)
         return context
 
@@ -169,9 +169,9 @@ class DetailView(tabs.TabView):
 
     @staticmethod
     def get_network_detail_url(network_id):
-        return reverse('horizon:network:networks2:detail',
+        return reverse('horizon:network_user:networks2:detail',
                        args=(network_id,))
 
     @staticmethod
     def get_redirect_url():
-        return reverse('horizon:network:networks2:index')
+        return reverse('horizon:network_user:networks2:index')

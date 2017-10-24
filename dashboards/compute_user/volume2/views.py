@@ -22,5 +22,5 @@ from openstack_dashboard.dashboards.compute_user.volume2 \
 
 class IndexView(tabs.TabbedTableView):
     tab_group_class = project_tabs.VolumeAndSnapshotTabs
-    template_name = 'compute/volume2/index.html'
+    template_name = 'compute_user/volume2/index.html'
     page_title = _("Volumes")

@@ -30,7 +30,7 @@ from openstack_dashboard.dashboards.compute_user.vminstance2 import console
 class OverviewTab(tabs.Tab):
     name = _("Overview")
     slug = "overview"
-    template_name = ("compute/vminstance2/"
+    template_name = ("compute_user/vminstance2/"
                      "_detail_overview.html")
 
     def get_context_data(self, request):
@@ -41,7 +41,7 @@ class OverviewTab(tabs.Tab):
 class LogTab(tabs.Tab):
     name = _("Log")
     slug = "log"
-    template_name = "compute/vminstance2/_detail_log.html"
+    template_name = "compute_user/vminstance2/_detail_log.html"
     preload = False
 
     def get_context_data(self, request):
@@ -62,7 +62,7 @@ class LogTab(tabs.Tab):
 class ConsoleTab(tabs.Tab):
     name = _("Console")
     slug = "console"
-    template_name = "compute/vminstance2/_detail_console.html"
+    template_name = "compute_user/vminstance2/_detail_console.html"
     preload = False
 
     def get_context_data(self, request):
@@ -75,7 +75,7 @@ class ConsoleTab(tabs.Tab):
             # For serial console, the url is different from VNC, etc.
             # because it does not include params for title and token
             if console_type == "SERIAL":
-                console_url = reverse('horizon:compute:vminstance2:serial',
+                console_url = reverse('horizon:compute_user:vminstance2:serial',
                                       args=[instance.id])
         except exceptions.NotAvailable:
             exceptions.handle(request, ignore=True, force_log=True)
@@ -93,7 +93,7 @@ class AuditTab(tabs.TableTab):
     name = _("Action Log")
     slug = "audit"
     table_classes = (a_tables.AuditTable,)
-    template_name = "compute/vminstance2/_detail_audit.html"
+    template_name = "compute_user/vminstance2/_detail_audit.html"
     preload = False
 
     def get_audit_data(self):

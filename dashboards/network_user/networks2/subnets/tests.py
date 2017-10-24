@@ -24,10 +24,10 @@ from openstack_dashboard.dashboards.network_user.networks2 \
     import tests as net_tests
 from openstack_dashboard.test import helpers as test
 
-DETAIL_URL = 'horizon:network:networks2:subnets:detail'
+DETAIL_URL = 'horizon:network_user:networks2:subnets:detail'
 
-NETWORKS_INDEX_URL = reverse('horizon:network:networks2:index')
-NETWORKS_DETAIL_URL = 'horizon:network:networks2:detail'
+NETWORKS_INDEX_URL = reverse('horizon:network_user:networks2:index')
+NETWORKS_DETAIL_URL = 'horizon:network_user:networks2:detail'
 form_data_subnet = net_tests.form_data_subnet
 
 
@@ -80,7 +80,7 @@ class NetworkSubnetTests(test.TestCase):
             AndReturn(self.subnetpools.list())
         self.mox.ReplayAll()
 
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[network.id])
         res = self.client.get(url)
 
@@ -113,7 +113,7 @@ class NetworkSubnetTests(test.TestCase):
         self.mox.ReplayAll()
 
         form_data = form_data_subnet(subnet)
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -150,7 +150,7 @@ class NetworkSubnetTests(test.TestCase):
         self.mox.ReplayAll()
 
         form_data = form_data_subnet(subnet)
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -185,7 +185,7 @@ class NetworkSubnetTests(test.TestCase):
         self.mox.ReplayAll()
 
         form_data = form_data_subnet(subnet, gateway_ip=None)
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -210,7 +210,7 @@ class NetworkSubnetTests(test.TestCase):
             form_data['subnetpool'] = subnetpool.id
         form_data.update(form_data_subnet(subnet, allocation_pools=[]))
 
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -248,7 +248,7 @@ class NetworkSubnetTests(test.TestCase):
         self.mox.ReplayAll()
 
         form_data = form_data_subnet(subnet, allocation_pools=[])
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -283,7 +283,7 @@ class NetworkSubnetTests(test.TestCase):
         cidr = '2001:0DB8:0:CD30:123:4567:89AB:CDEF/60'
         form_data.update(form_data_subnet(subnet, cidr=cidr,
                                           allocation_pools=[]))
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -323,7 +323,7 @@ class NetworkSubnetTests(test.TestCase):
         gateway_ip = '2001:0DB8:0:CD30:123:4567:89AB:CDEF'
         form_data.update(form_data_subnet(subnet, gateway_ip=gateway_ip,
                                           allocation_pools=[]))
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -359,7 +359,7 @@ class NetworkSubnetTests(test.TestCase):
         allocation_pools = '10.0.0.2'
         form_data.update(form_data_subnet(subnet,
                                           allocation_pools=allocation_pools))
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -398,7 +398,7 @@ class NetworkSubnetTests(test.TestCase):
         allocation_pools = '10.0.0.2,10.0.0.3,10.0.0.4'
         form_data.update(form_data_subnet(subnet,
                                           allocation_pools=allocation_pools))
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -437,7 +437,7 @@ class NetworkSubnetTests(test.TestCase):
         allocation_pools = '10.0.0.2,invalid_address'
         form_data.update(form_data_subnet(subnet,
                                           allocation_pools=allocation_pools))
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -476,7 +476,7 @@ class NetworkSubnetTests(test.TestCase):
         allocation_pools = '10.0.0.2/24,10.0.0.5'
         form_data.update(form_data_subnet(subnet,
                                           allocation_pools=allocation_pools))
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -515,7 +515,7 @@ class NetworkSubnetTests(test.TestCase):
         allocation_pools = '10.0.0.254,10.0.0.2'
         form_data = form_data_subnet(subnet,
                                      allocation_pools=allocation_pools)
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -555,7 +555,7 @@ class NetworkSubnetTests(test.TestCase):
         form_data.update(form_data_subnet(subnet,
                                           dns_nameservers=dns_nameservers,
                                           allocation_pools=[]))
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -596,7 +596,7 @@ class NetworkSubnetTests(test.TestCase):
         form_data.update(form_data_subnet(subnet,
                                           allocation_pools=[],
                                           host_routes=host_routes))
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -637,7 +637,7 @@ class NetworkSubnetTests(test.TestCase):
         form_data.update(form_data_subnet(subnet,
                                           allocation_pools=[],
                                           host_routes=host_routes))
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -678,7 +678,7 @@ class NetworkSubnetTests(test.TestCase):
         form_data.update(form_data_subnet(subnet,
                                           host_routes=host_routes,
                                           allocation_pools=[]))
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -718,7 +718,7 @@ class NetworkSubnetTests(test.TestCase):
         form_data.update(form_data_subnet(subnet,
                                           host_routes=host_routes,
                                           allocation_pools=[]))
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -757,7 +757,7 @@ class NetworkSubnetTests(test.TestCase):
         self.mox.ReplayAll()
 
         form_data = form_data_subnet(subnet)
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -794,7 +794,7 @@ class NetworkSubnetTests(test.TestCase):
         self.mox.ReplayAll()
 
         form_data = form_data_subnet(subnet)
-        url = reverse('horizon:network:networks2:addsubnet',
+        url = reverse('horizon:network_user:networks2:addsubnet',
                       args=[subnet.network_id])
         res = self.client.post(url, form_data)
 
@@ -827,7 +827,7 @@ class NetworkSubnetTests(test.TestCase):
 
         form_data = form_data_subnet(subnet,
                                      allocation_pools=[])
-        url = reverse('horizon:network:networks2:editsubnet',
+        url = reverse('horizon:network_user:networks2:editsubnet',
                       args=[subnet.network_id, subnet.id])
         res = self.client.post(url, form_data)
 
@@ -860,7 +860,7 @@ class NetworkSubnetTests(test.TestCase):
         form_data = form_data_subnet(subnet,
                                      gateway_ip=gateway_ip,
                                      allocation_pools=[])
-        url = reverse('horizon:network:networks2:editsubnet',
+        url = reverse('horizon:network_user:networks2:editsubnet',
                       args=[subnet.network_id, subnet.id])
         res = self.client.post(url, form_data)
 
@@ -892,7 +892,7 @@ class NetworkSubnetTests(test.TestCase):
         form_data = form_data_subnet(subnet,
                                      gateway_ip=None,
                                      allocation_pools=[])
-        url = reverse('horizon:network:networks2:editsubnet',
+        url = reverse('horizon:network_user:networks2:editsubnet',
                       args=[subnet.network_id, subnet.id])
         res = self.client.post(url, form_data)
 
@@ -928,7 +928,7 @@ class NetworkSubnetTests(test.TestCase):
 
         form_data = form_data_subnet(subnet,
                                      enable_dhcp=False)
-        url = reverse('horizon:network:networks2:editsubnet',
+        url = reverse('horizon:network_user:networks2:editsubnet',
                       args=[subnet.network_id, subnet.id])
         res = self.client.post(url, form_data)
 
@@ -954,7 +954,7 @@ class NetworkSubnetTests(test.TestCase):
         gateway_ip = '2001:0DB8:0:CD30:123:4567:89AB:CDEF'
         form_data = form_data_subnet(subnet, gateway_ip=gateway_ip,
                                      allocation_pools=[])
-        url = reverse('horizon:network:networks2:editsubnet',
+        url = reverse('horizon:network_user:networks2:editsubnet',
                       args=[subnet.network_id, subnet.id])
         res = self.client.post(url, form_data)
 
@@ -979,7 +979,7 @@ class NetworkSubnetTests(test.TestCase):
         dns_nameservers = ['192.168.0.2', 'invalid_address']
         form_data = form_data_subnet(subnet, dns_nameservers=dns_nameservers,
                                      allocation_pools=[])
-        url = reverse('horizon:network:networks2:editsubnet',
+        url = reverse('horizon:network_user:networks2:editsubnet',
                       args=[subnet.network_id, subnet.id])
         res = self.client.post(url, form_data)
 
@@ -1007,7 +1007,7 @@ class NetworkSubnetTests(test.TestCase):
         form_data = form_data_subnet(subnet,
                                      allocation_pools=[],
                                      host_routes=host_routes)
-        url = reverse('horizon:network:networks2:editsubnet',
+        url = reverse('horizon:network_user:networks2:editsubnet',
                       args=[subnet.network_id, subnet.id])
         res = self.client.post(url, form_data)
 
@@ -1036,7 +1036,7 @@ class NetworkSubnetTests(test.TestCase):
         form_data = form_data_subnet(subnet,
                                      allocation_pools=[],
                                      host_routes=host_routes)
-        url = reverse('horizon:network:networks2:editsubnet',
+        url = reverse('horizon:network_user:networks2:editsubnet',
                       args=[subnet.network_id, subnet.id])
         res = self.client.post(url, form_data)
 
@@ -1065,7 +1065,7 @@ class NetworkSubnetTests(test.TestCase):
         form_data = form_data_subnet(subnet,
                                      host_routes=host_routes,
                                      allocation_pools=[])
-        url = reverse('horizon:network:networks2:editsubnet',
+        url = reverse('horizon:network_user:networks2:editsubnet',
                       args=[subnet.network_id, subnet.id])
         res = self.client.post(url, form_data)
 
@@ -1093,7 +1093,7 @@ class NetworkSubnetTests(test.TestCase):
         form_data = form_data_subnet(subnet,
                                      host_routes=host_routes,
                                      allocation_pools=[])
-        url = reverse('horizon:network:networks2:editsubnet',
+        url = reverse('horizon:network_user:networks2:editsubnet',
                       args=[subnet.network_id, subnet.id])
         res = self.client.post(url, form_data)
 

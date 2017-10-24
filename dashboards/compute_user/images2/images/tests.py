@@ -35,7 +35,7 @@ from openstack_dashboard.dashboards.compute_user.images2.images import forms
 from openstack_dashboard.dashboards.compute_user.images2.images import tables
 
 
-IMAGES_INDEX_URL = reverse('horizon:compute:images2:index')
+IMAGES_INDEX_URL = reverse('horizon:compute_user:images2:index')
 
 
 class CreateImageFormTests(test.ResetImageAPIVersionMixin, test.TestCase):
@@ -143,7 +143,7 @@ class UpdateImageFormTests(test.ResetImageAPIVersionMixin, test.TestCase):
            .AndReturn(image)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:images2:images:update',
+        url = reverse('horizon:compute_user:images2:images:update',
                       args=[image.id])
         res = self.client.get(url)
         self.assertNoFormErrors(res)
@@ -185,7 +185,7 @@ class UpdateImageFormTests(test.ResetImageAPIVersionMixin, test.TestCase):
                                     'architecture':
                                     data['architecture']}).AndReturn(image)
         self.mox.ReplayAll()
-        url = reverse('horizon:compute:images2:images:update',
+        url = reverse('horizon:compute_user:images2:images:update',
                       args=[image.id])
         res = self.client.post(url, data)
         self.assertNoFormErrors(res)
@@ -224,7 +224,7 @@ class UpdateImageFormTests(test.ResetImageAPIVersionMixin, test.TestCase):
                                 architecture=data['architecture']).\
             AndReturn(image)
         self.mox.ReplayAll()
-        url = reverse('horizon:compute:images2:images:update',
+        url = reverse('horizon:compute_user:images2:images:update',
                       args=[image.id])
         res = self.client.post(url, data)
         self.assertNoFormErrors(res)
@@ -244,10 +244,10 @@ class ImageViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
             [self.images.list(), False, False])
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:images2:images:create')
+        url = reverse('horizon:compute_user:images2:images:create')
         res = self.client.get(url)
         self.assertTemplateUsed(res,
-                                'compute/images2/images/create.html')
+                                'compute_user/images2/images/create.html')
 
     @override_settings(OPENSTACK_API_VERSIONS={'image': 1})
     @test.create_stubs({api.glance: ('image_create',)})
@@ -397,7 +397,7 @@ class ImageViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
             **api_data).AndReturn(self.images.first())
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:images2:images:create')
+        url = reverse('horizon:compute_user:images2:images:create')
         res = self.client.post(url, data)
 
         self.assertNoFormErrors(res)
@@ -408,7 +408,7 @@ class ImageViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
             .AndReturn(image)
         self.mox.ReplayAll()
 
-        res = self.client.get(reverse('horizon:compute:images2:images:detail',
+        res = self.client.get(reverse('horizon:compute_user:images2:images:detail',
                                       args=[image.id]))
 
         self.assertTemplateUsed(res,
@@ -434,7 +434,7 @@ class ImageViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
             .AndReturn(image)
         self.mox.ReplayAll()
 
-        res = self.client.get(reverse('horizon:compute:images2:images:detail',
+        res = self.client.get(reverse('horizon:compute_user:images2:images:detail',
                                       args=[image.id]))
 
         image_props = res.context['image_props']
@@ -472,7 +472,7 @@ class ImageViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         self.mox.ReplayAll()
 
         res = self.client.get(
-            reverse('horizon:compute:images2:images:detail',
+            reverse('horizon:compute_user:images2:images:detail',
                     args=[image.id]))
         self.assertTemplateUsed(res,
                                 'horizon/common/_detail.html')
@@ -499,7 +499,7 @@ class ImageViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
             .AndRaise(self.exceptions.glance)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:images2:images:detail',
+        url = reverse('horizon:compute_user:images2:images:detail',
                       args=[image.id])
         res = self.client.get(url)
         self.assertRedirectsNoFollow(res, IMAGES_INDEX_URL)
@@ -513,11 +513,11 @@ class ImageViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         self.mox.ReplayAll()
 
         res = self.client.get(
-            reverse('horizon:compute:images2:images:update',
+            reverse('horizon:compute_user:images2:images:update',
                     args=[image.id]))
 
         self.assertTemplateUsed(res,
-                                'compute/images2/images/_update.html')
+                                'compute_user/images2/images/_update.html')
         self.assertEqual(res.context['image'].name, image.name)
         # Bug 1076216 - is_public checkbox not being set correctly
         self.assertContains(res, "<input type='checkbox' id='id_public'"

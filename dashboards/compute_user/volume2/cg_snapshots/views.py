@@ -33,7 +33,7 @@ from openstack_dashboard.dashboards.compute_user.volume2 \
 CGROUP_INFO_FIELDS = ("name",
                       "description")
 
-INDEX_URL = "horizon:compute:volume2:index"
+INDEX_URL = "horizon:compute_user:volume2:index"
 
 
 class DetailView(tabs.TabView):
@@ -84,7 +84,7 @@ class DetailView(tabs.TabView):
 
     @staticmethod
     def get_redirect_url():
-        return reverse('horizon:compute:volume2:index')
+        return reverse('horizon:compute_user:volume2:index')
 
     def get_tabs(self, request, *args, **kwargs):
         cg_snapshot = self.get_data()
@@ -93,9 +93,9 @@ class DetailView(tabs.TabView):
 
 class CreateCGroupView(forms.ModalFormView):
     form_class = cg_snapshot_forms.CreateCGroupForm
-    template_name = 'compute/volume2/cg_snapshots/create.html'
-    submit_url = "horizon:compute:volume2:cg_snapshots:create_cgroup"
-    success_url = reverse_lazy('horizon:compute:volume2:cgroups_tab')
+    template_name = 'compute_user/volume2/cg_snapshots/create.html'
+    submit_url = "horizon:compute_user:volume2:cg_snapshots:create_cgroup"
+    success_url = reverse_lazy('horizon:compute_user:volume2:cgroups_tab')
     page_title = _("Create Volume Consistency Group")
 
     def get_context_data(self, **kwargs):

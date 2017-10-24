@@ -40,7 +40,7 @@ class UpdatePort(forms.SelfHandlingForm):
                            required=False)
     admin_state = forms.BooleanField(label=_("Enable Admin State"),
                                      required=False)
-    failure_url = 'horizon:network:networks2:detail'
+    failure_url = 'horizon:network_user:networks2:detail'
 
     def __init__(self, request, *args, **kwargs):
         super(UpdatePort, self).__init__(request, *args, **kwargs)

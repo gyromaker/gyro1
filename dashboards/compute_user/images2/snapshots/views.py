@@ -34,9 +34,9 @@ class CreateView(forms.ModalFormView):
     form_id = "create_snapshot_form"
     modal_id = "create_snapshot_modal"
     submit_label = _("Create Snapshot")
-    submit_url = "horizon:compute:images2:snapshots:create"
-    template_name = 'compute/images2/snapshots/create.html'
-    success_url = reverse_lazy("horizon:compute:images2:index")
+    submit_url = "horizon:compute_user:images2:snapshots:create"
+    template_name = 'compute_user/images2/snapshots/create.html'
+    success_url = reverse_lazy("horizon:compute_user:images2:index")
     page_title = _("Create Snapshot")
 
     def get_initial(self):

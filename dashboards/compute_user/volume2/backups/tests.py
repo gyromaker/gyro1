@@ -19,8 +19,8 @@ from openstack_dashboard import api
 from openstack_dashboard.test import helpers as test
 
 
-INDEX_URL = reverse('horizon:compute:volume2:index')
-VOLUME_BACKUPS_TAB_URL = reverse('horizon:compute:volume2:backups_tab')
+INDEX_URL = reverse('horizon:compute_user:volume2:index')
+VOLUME_BACKUPS_TAB_URL = reverse('horizon:compute_user:volume2:backups_tab')
 
 
 class VolumeBackupsViewTests(test.TestCase):
@@ -44,7 +44,7 @@ class VolumeBackupsViewTests(test.TestCase):
                     'container_name': backup.container_name,
                     'name': backup.name,
                     'description': backup.description}
-        url = reverse('horizon:compute:volume2:volumes:create_backup',
+        url = reverse('horizon:compute_user:volume2:volumes:create_backup',
                       args=[volume.id])
         res = self.client.post(url, formData)
 
@@ -93,7 +93,7 @@ class VolumeBackupsViewTests(test.TestCase):
             AndReturn(volume)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:backups:detail',
+        url = reverse('horizon:compute_user:volume2:backups:detail',
                       args=[backup.id])
         res = self.client.get(url)
 
@@ -109,7 +109,7 @@ class VolumeBackupsViewTests(test.TestCase):
             AndRaise(self.exceptions.cinder)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:backups:detail',
+        url = reverse('horizon:compute_user:volume2:backups:detail',
                       args=[backup.id])
         res = self.client.get(url)
 
@@ -128,7 +128,7 @@ class VolumeBackupsViewTests(test.TestCase):
             AndRaise(self.exceptions.cinder)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:backups:detail',
+        url = reverse('horizon:compute_user:volume2:backups:detail',
                       args=[backup.id])
         res = self.client.get(url)
 
@@ -153,7 +153,7 @@ class VolumeBackupsViewTests(test.TestCase):
                     'backup_id': backup.id,
                     'backup_name': backup.name,
                     'volume_id': backup.volume_id}
-        url = reverse('horizon:compute:volume2:backups:restore',
+        url = reverse('horizon:compute_user:volume2:backups:restore',
                       args=[backup.id])
         url += '?%s' % urlencode({'backup_name': backup.name,
                                   'volume_id': backup.volume_id})

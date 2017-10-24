@@ -137,7 +137,7 @@ class SetInstanceDetailsAction(workflows.Action):
 
     class Meta(object):
         name = _("Details")
-        help_text_template = ("compute/vminstance2/"
+        help_text_template = ("compute_user/vminstance2/"
                               "_launch_details_help.html")
 
     def __init__(self, request, context, *args, **kwargs):
@@ -620,7 +620,7 @@ class SetAccessControls(workflows.Step):
 class CustomizeAction(workflows.Action):
     class Meta(object):
         name = _("Post-Creation")
-        help_text_template = ("compute/vminstance2/"
+        help_text_template = ("compute_user/vminstance2/"
                               "_launch_customize_help.html")
 
     source_choices = [('', _('Select Script Source')),
@@ -763,7 +763,7 @@ class SetNetwork(workflows.Step):
     if api.neutron.is_port_profiles_supported():
         contributes = ("network_id", "profile_id",)
     else:
-        template_name = "compute/vminstance2/_update_networks.html"
+        template_name = "compute_user/vminstance2/_update_networks.html"
         contributes = ("network_id",)
 
     def contribute(self, data, context):
@@ -790,7 +790,7 @@ class SetNetworkPortsAction(workflows.Action):
     class Meta(object):
         name = _("Network Ports")
         permissions = ('openstack.services.network',)
-        help_text_template = ("compute/vminstance2/"
+        help_text_template = ("compute_user/vminstance2/"
                               "_launch_network_ports_help.html")
 
     def populate_ports_choices(self, request, context):
@@ -858,7 +858,7 @@ class SetAdvancedAction(workflows.Action):
 
     class Meta(object):
         name = _("Advanced Options")
-        help_text_template = ("compute/vminstance2/"
+        help_text_template = ("compute_user/vminstance2/"
                               "_launch_advanced_help.html")
 
 
@@ -883,7 +883,7 @@ class LaunchInstance(workflows.Workflow):
     success_message = _('Request for launching %(count)s named "%(name)s" '
                         'has been submitted.')
     failure_message = _('Unable to launch %(count)s named "%(name)s".')
-    success_url = "horizon:compute:vminstance2:index"
+    success_url = "horizon:compute_user:vminstance2:index"
     multipart = True
     default_steps = (SelectProjectUser,
                      SetInstanceDetails,

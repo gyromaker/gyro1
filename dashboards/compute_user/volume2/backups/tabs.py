@@ -23,7 +23,7 @@ from openstack_dashboard.api import cinder
 class BackupOverviewTab(tabs.Tab):
     name = _("Overview")
     slug = "overview"
-    template_name = ("compute/volume2/backups/"
+    template_name = ("compute_user/volume2/backups/"
                      "_detail_overview.html")
 
     def get_context_data(self, request):
@@ -36,7 +36,7 @@ class BackupOverviewTab(tabs.Tab):
             return {'backup': backup,
                     'volume': volume}
         except Exception:
-            redirect = reverse('horizon:compute:volume2:index')
+            redirect = reverse('horizon:compute_user:volume2:index')
             exceptions.handle(self.request,
                               _('Unable to retrieve backup details.'),
                               redirect=redirect)

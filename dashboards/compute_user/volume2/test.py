@@ -32,11 +32,11 @@ from openstack_dashboard.dashboards.compute_user.volume2.volumes \
 from openstack_dashboard.test import helpers as test
 
 
-INDEX_URL = reverse('horizon:compute:volume2:index')
+INDEX_URL = reverse('horizon:compute_user:volume2:index')
 VOLUME_SNAPSHOTS_TAB_URL = urlunquote(reverse(
-    'horizon:compute:volume2:snapshots_tab'))
+    'horizon:compute_user:volume2:snapshots_tab'))
 VOLUME_BACKUPS_TAB_URL = urlunquote(reverse(
-    'horizon:compute:volume2:backups_tab'))
+    'horizon:compute_user:volume2:backups_tab'))
 
 
 class VolumeAndSnapshotsAndBackupsTests(test.TestCase):
@@ -85,17 +85,17 @@ class VolumeAndSnapshotsAndBackupsTests(test.TestCase):
 
         res = self.client.get(INDEX_URL)
         self.assertEqual(res.status_code, 200)
-        self.assertTemplateUsed(res, 'compute/volume2/index.html')
+        self.assertTemplateUsed(res, 'compute_user/volume2/index.html')
 
         # Explicitly load the other tabs. If this doesn't work the test
         # will fail due to "Expected methods never called."
         res = self.client.get(VOLUME_SNAPSHOTS_TAB_URL)
         self.assertEqual(res.status_code, 200)
-        self.assertTemplateUsed(res, 'compute/volume2/index.html')
+        self.assertTemplateUsed(res, 'compute_user/volume2/index.html')
 
         if backup_supported:
             res = self.client.get(VOLUME_BACKUPS_TAB_URL)
-            self.assertTemplateUsed(res, 'compute/volume2/index.html')
+            self.assertTemplateUsed(res, 'compute_user/volume2/index.html')
 
     def test_index_backup_supported(self):
         self._test_index(backup_supported=True)
@@ -133,7 +133,7 @@ class VolumeAndSnapshotsAndBackupsTests(test.TestCase):
 
         res = self.client.get(urlunquote(url))
         self.assertEqual(res.status_code, 200)
-        self.assertTemplateUsed(res, 'compute/volume2/index.html')
+        self.assertTemplateUsed(res, 'compute_user/volume2/index.html')
 
         self.mox.UnsetStubs()
         return res
@@ -230,7 +230,7 @@ class VolumeAndSnapshotsAndBackupsTests(test.TestCase):
 
         res = self.client.get(urlunquote(url))
         self.assertEqual(res.status_code, 200)
-        self.assertTemplateUsed(res, 'compute/volume2/index.html')
+        self.assertTemplateUsed(res, 'compute_user/volume2/index.html')
 
         self.mox.UnsetStubs()
         return res
@@ -239,7 +239,7 @@ class VolumeAndSnapshotsAndBackupsTests(test.TestCase):
     def test_snapshots_index_paginated(self):
         mox_snapshots = self.cinder_volume_snapshots.list()
         size = settings.API_RESULT_PAGE_SIZE
-        base_url = reverse('horizon:compute:volume2:snapshots_tab')
+        base_url = reverse('horizon:compute_user:volume2:snapshots_tab')
         next = snapshot_tables.VolumeSnapshotsTable._meta.pagination_param
 
         # get first page
@@ -275,7 +275,7 @@ class VolumeAndSnapshotsAndBackupsTests(test.TestCase):
     def test_snapshots_index_paginated_prev_page(self):
         mox_snapshots = self.cinder_volume_snapshots.list()
         size = settings.API_RESULT_PAGE_SIZE
-        base_url = reverse('horizon:compute:volume2:snapshots_tab')
+        base_url = reverse('horizon:compute_user:volume2:snapshots_tab')
         prev = snapshot_tables.VolumeSnapshotsTable._meta.prev_pagination_param
 
         # prev from some page
@@ -319,7 +319,7 @@ class VolumeAndSnapshotsAndBackupsTests(test.TestCase):
 
         res = self.client.get(urlunquote(url))
         self.assertEqual(res.status_code, 200)
-        self.assertTemplateUsed(res, 'compute/volume2/index.html')
+        self.assertTemplateUsed(res, 'compute_user/volume2/index.html')
 
         self.mox.UnsetStubs()
         return res
@@ -328,7 +328,7 @@ class VolumeAndSnapshotsAndBackupsTests(test.TestCase):
     def test_backups_index_paginated(self):
         mox_backups = self.cinder_volume_backups.list()
         size = settings.API_RESULT_PAGE_SIZE
-        base_url = reverse('horizon:compute:volume2:backups_tab')
+        base_url = reverse('horizon:compute_user:volume2:backups_tab')
         next = backup_tables.BackupsTable._meta.pagination_param
 
         # get first page
@@ -364,7 +364,7 @@ class VolumeAndSnapshotsAndBackupsTests(test.TestCase):
     def test_backups_index_paginated_prev_page(self):
         mox_backups = self.cinder_volume_backups.list()
         size = settings.API_RESULT_PAGE_SIZE
-        base_url = reverse('horizon:compute:volume2:backups_tab')
+        base_url = reverse('horizon:compute_user:volume2:backups_tab')
         prev = backup_tables.BackupsTable._meta.prev_pagination_param
 
         # prev from some page

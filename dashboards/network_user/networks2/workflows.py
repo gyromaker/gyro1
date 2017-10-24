@@ -479,10 +479,10 @@ class CreateNetwork(workflows.Workflow):
     wizard = True
 
     def get_success_url(self):
-        return reverse("horizon:network:networks2:index")
+        return reverse("horizon:network_user:networks2:index")
 
     def get_failure_url(self):
-        return reverse("horizon:network:networks2:index")
+        return reverse("horizon:network_user:networks2:index")
 
     def format_status_message(self, message):
         name = self.context.get('net_name') or self.context.get('net_id', '')

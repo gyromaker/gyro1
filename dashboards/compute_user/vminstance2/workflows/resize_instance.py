@@ -42,7 +42,7 @@ class SetFlavorChoiceAction(workflows.Action):
     class Meta(object):
         name = _("Flavor Choice")
         slug = 'flavor_choice'
-        help_text_template = ("compute/vminstance2/"
+        help_text_template = ("compute_user/vminstance2/"
                               "_flavors_and_quotas.html")
 
     def populate_flavor_choices(self, request, context):
@@ -92,7 +92,7 @@ class ResizeInstance(workflows.Workflow):
     success_message = _('Request for resizing of instance "%s" '
                         'has been submitted.')
     failure_message = _('Unable to resize instance "%s".')
-    success_url = "horizon:compute:vminstance2:index"
+    success_url = "horizon:compute_user:vminstance2:index"
     default_steps = (SetFlavorChoice, create_instance.SetAdvanced)
 
     def format_status_message(self, message):

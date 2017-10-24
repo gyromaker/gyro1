@@ -61,7 +61,7 @@ class LaunchImage(tables.LinkAction):
 class LaunchImageNG(LaunchImage):
     name = "launch_image_ng"
     verbose_name = _("Launch")
-    url = "horizon:compute:images2:index"
+    url = "horizon:compute_user:images2:index"
     classes = ("btn-launch", )
     ajax = False
 
@@ -120,7 +120,7 @@ class DeleteImage(tables.DeleteAction):
 class CreateImage(tables.LinkAction):
     name = "create"
     verbose_name = _("Create Image")
-    url = "horizon:compute:images2:images:create"
+    url = "horizon:compute_user:images2:images:create"
     classes = ("ajax-modal",)
     icon = "plus"
     policy_rules = (("image", "add_image"),)
@@ -129,7 +129,7 @@ class CreateImage(tables.LinkAction):
 class EditImage(tables.LinkAction):
     name = "edit"
     verbose_name = _("Edit Image")
-    url = "horizon:compute:images2:images:update"
+    url = "horizon:compute_user:images2:images:update"
     classes = ("ajax-modal",)
     icon = "pencil"
     policy_rules = (("image", "modify_image"),)
@@ -308,7 +308,7 @@ class ImagesTable(tables.DataTable):
         ("snapshot", pgettext_lazy("Type of an image", u"Snapshot")),
     )
     name = tables.WrappingColumn(get_image_name,
-                                 link="horizon:compute:images2:images:detail",
+                                 link="horizon:compute_user:images2:images:detail",
                                  verbose_name=_("Image Name"),)
     image_type = tables.Column(get_image_type,
                                verbose_name=_("Type"),

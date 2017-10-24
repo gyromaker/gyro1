@@ -31,7 +31,7 @@ from openstack_dashboard.usage import quotas
 
 
 INDEX_TEMPLATE = 'horizon/common/_data_table_view.html'
-INDEX_URL = reverse('horizon:network:networks2:index')
+INDEX_URL = reverse('horizon:network_user:networks2:index')
 
 
 def form_data_subnet(subnet,
@@ -194,7 +194,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
             .MultipleTimes().AndReturn(quota_data)
 
         self.mox.ReplayAll()
-        url = urlunquote(reverse('horizon:network:networks2:detail',
+        url = urlunquote(reverse('horizon:network_user:networks2:detail',
                                  args=[network_id]))
 
         res = self.client.get(url)
@@ -221,7 +221,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
             .MultipleTimes().AndReturn(quota_data)
         self.mox.ReplayAll()
 
-        url = urlunquote(reverse('horizon:network:networks2:subnets_tab',
+        url = urlunquote(reverse('horizon:network_user:networks2:subnets_tab',
                          args=[network_id]))
         res = self.client.get(url)
 
@@ -252,7 +252,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
             .AndReturn(mac_learning)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:network:networks2:detail', args=[network_id])
+        url = reverse('horizon:network_user:networks2:detail', args=[network_id])
         res = self.client.get(url)
 
         redir_url = INDEX_URL
@@ -292,7 +292,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
             .MultipleTimes().AndReturn(quota_data)
         self.mox.ReplayAll()
 
-        url = urlunquote(reverse('horizon:network:networks2:subnets_tab',
+        url = urlunquote(reverse('horizon:network_user:networks2:subnets_tab',
                                  args=[network_id]))
         res = self.client.get(url)
 
@@ -334,7 +334,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
             .MultipleTimes().AndReturn(quota_data)
         self.mox.ReplayAll()
 
-        url = urlunquote(reverse('horizon:network:networks2:subnets_tab',
+        url = urlunquote(reverse('horizon:network_user:networks2:subnets_tab',
                                  args=[network_id]))
         res = self.client.get(url)
         self.assertTemplateUsed(res, 'horizon/common/_detail.html')
@@ -357,7 +357,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
                                      'network').AndReturn(net_profiles)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.get(url)
 
         workflow = res.context['workflow']
@@ -406,7 +406,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
         if test_with_profile:
             form_data['net_profile_id'] = net_profile_id
         form_data.update(form_data_no_subnet())
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         self.assertNoFormErrors(res)
@@ -444,7 +444,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
         if test_with_profile:
             form_data['net_profile_id'] = net_profile_id
         form_data.update(form_data_no_subnet())
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         self.assertNoFormErrors(res)
@@ -501,7 +501,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
         if test_with_profile:
             form_data['net_profile_id'] = net_profile_id
         form_data.update(form_data_subnet(subnet, allocation_pools=[]))
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         self.assertNoFormErrors(res)
@@ -549,7 +549,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
         if test_with_profile:
             form_data['net_profile_id'] = net_profile_id
         form_data.update(form_data_no_subnet())
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         self.assertNoFormErrors(res)
@@ -597,7 +597,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
         if test_with_profile:
             form_data['net_profile_id'] = net_profile_id
         form_data.update(form_data_subnet(subnet, allocation_pools=[]))
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         self.assertNoFormErrors(res)
@@ -656,7 +656,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
         if test_with_profile:
             form_data['net_profile_id'] = net_profile_id
         form_data.update(form_data_subnet(subnet, allocation_pools=[]))
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         self.assertNoFormErrors(res)
@@ -699,7 +699,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
             form_data['prefixlen'] = ''
         form_data.update(form_data_subnet(subnet, cidr='',
                                           allocation_pools=[]))
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         self.assertContains(res, escape('Specify "Network Address" or '
@@ -750,7 +750,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
             form_data['prefixlen'] = subnetpool.default_prefixlen
         form_data.update(form_data_subnet(subnet, cidr='10.0.0.0',
                                           allocation_pools=[]))
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         expected_msg = "The subnet in the Network Address is too small (/32)."
@@ -804,7 +804,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
 
         form_data.update(form_data_subnet(subnet, cidr='30.30.30.0/24',
                                           allocation_pools=[]))
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         expected_msg = ("CIDRs allowed for user private ipv4 networks "
@@ -865,7 +865,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
 
         form_data.update(form_data_subnet(subnet_v6, cidr='fc00::/7',
                                           allocation_pools=[]))
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         expected_msg = ("CIDRs allowed for user private ipv6 networks "
@@ -937,7 +937,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
         form_data.update(form_data_subnet(subnet, cidr=cidr,
                                           gateway_ip=gateway_ip,
                                           allocation_pools=[]))
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         self.assertNoFormErrors(res)
@@ -986,7 +986,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
             form_data['prefixlen'] = subnetpool.default_prefixlen
         form_data.update(form_data_subnet(subnet, cidr=cidr,
                                           allocation_pools=[]))
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         expected_msg = 'Network Address and IP version are inconsistent.'
@@ -1039,7 +1039,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
             form_data['prefixlen'] = subnetpool.default_prefixlen
         form_data.update(form_data_subnet(subnet, gateway_ip=gateway_ip,
                                           allocation_pools=[]))
-        url = reverse('horizon:network:networks2:create')
+        url = reverse('horizon:network_user:networks2:create')
         res = self.client.post(url, form_data)
 
         self.assertContains(res, 'Gateway IP and IP version are inconsistent.')
@@ -1061,10 +1061,10 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
                                 expand_subnet=False).AndReturn(network)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:network:networks2:update', args=[network.id])
+        url = reverse('horizon:network_user:networks2:update', args=[network.id])
         res = self.client.get(url)
 
-        self.assertTemplateUsed(res, 'network/networks2/update.html')
+        self.assertTemplateUsed(res, 'network_user/networks2/update.html')
 
     @test.create_stubs({api.neutron: ('network_get',)})
     def test_network_update_get_exception(self):
@@ -1074,7 +1074,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:network:networks2:update', args=[network.id])
+        url = reverse('horizon:network_user:networks2:update', args=[network.id])
         res = self.client.get(url)
 
         redir_url = INDEX_URL
@@ -1098,7 +1098,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
                      'name': network.name,
                      'admin_state': network.admin_state_up,
                      'tenant_id': network.tenant_id}
-        url = reverse('horizon:network:networks2:update', args=[network.id])
+        url = reverse('horizon:network_user:networks2:update', args=[network.id])
         res = self.client.post(url, form_data)
 
         self.assertRedirectsNoFollow(res, INDEX_URL)
@@ -1121,7 +1121,7 @@ class NetworkTests(test.TestCase, NetworkStubMixin):
                      'name': network.name,
                      'admin_state': network.admin_state_up,
                      'tenant_id': network.tenant_id}
-        url = reverse('horizon:network:networks2:update', args=[network.id])
+        url = reverse('horizon:network_user:networks2:update', args=[network.id])
         res = self.client.post(url, form_data)
 
         self.assertRedirectsNoFollow(res, INDEX_URL)
@@ -1318,7 +1318,7 @@ class NetworkViewTests(test.TestCase, NetworkStubMixin):
 
         self.mox.ReplayAll()
 
-        url = urlunquote(reverse('horizon:network:networks2:subnets_tab',
+        url = urlunquote(reverse('horizon:network_user:networks2:subnets_tab',
                                  args=[network_id]))
 
         res = self.client.get(url)
@@ -1339,7 +1339,7 @@ class NetworkViewTests(test.TestCase, NetworkStubMixin):
         )
 
         self.assertEqual(set(['ajax-modal']), set(create_action.classes))
-        self.assertEqual('horizon:network:networks2:create', create_action.url)
+        self.assertEqual('horizon:network_user:networks2:create', create_action.url)
         self.assertEqual('Create Network',
                          six.text_type(create_action.verbose_name))
         self.assertEqual((('network', 'create_network'),),
@@ -1369,7 +1369,7 @@ class NetworkViewTests(test.TestCase, NetworkStubMixin):
             .MultipleTimes().AndReturn(quota_data)
 
         self.mox.ReplayAll()
-        url = urlunquote(reverse('horizon:network:networks2:subnets_tab',
+        url = urlunquote(reverse('horizon:network_user:networks2:subnets_tab',
                          args=[network_id]))
         res = self.client.get(url)
         self.assertTemplateUsed(res, 'horizon/common/_detail.html')
@@ -1380,7 +1380,7 @@ class NetworkViewTests(test.TestCase, NetworkStubMixin):
         create_action = self.getAndAssertTableAction(res, 'subnets', 'create')
 
         self.assertEqual(set(['ajax-modal']), set(create_action.classes))
-        self.assertEqual('horizon:network:networks2:addsubnet',
+        self.assertEqual('horizon:network_user:networks2:addsubnet',
                          create_action.url)
         self.assertEqual('Create Subnet',
                          six.text_type(create_action.verbose_name))

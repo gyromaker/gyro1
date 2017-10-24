@@ -4,6 +4,6 @@
 {% block modal-body-right %}
   <div class="quota-dynamic">
     <p>{% blocktrans %}Clone each of the volumes in the source Consistency Group, and then add them to a newly created Consistency Group.{% endblocktrans %}</p>
-    {% include "compute/volume2/_volume_limits.html" with usages=usages snapshot_quota=False %}
+    {% include "compute_user/volume2/_volume_limits.html" with usages=usages snapshot_quota=False %}
   </div>
 {% endblock %}

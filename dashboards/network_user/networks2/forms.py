@@ -41,7 +41,7 @@ class UpdateNetwork(forms.SelfHandlingForm):
     admin_state = forms.BooleanField(label=_("Enable Admin State"),
                                      required=False)
     shared = forms.BooleanField(label=_("Shared"), required=False)
-    failure_url = 'horizon:network:networks2:index'
+    failure_url = 'horizon:network_user:networks2:index'
 
     def __init__(self, request, *args, **kwargs):
         super(UpdateNetwork, self).__init__(request, *args, **kwargs)

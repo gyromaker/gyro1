@@ -38,8 +38,8 @@ from openstack_dashboard.test import helpers as test
 
 
 INDEX_TEMPLATE = 'horizon/common/_data_table_view.html'
-INDEX_URL = reverse('horizon:compute:images2:index')
-CREATE_URL = reverse('horizon:compute:images2:images:create')
+INDEX_URL = reverse('horizon:compute_user:images2:index')
+CREATE_URL = reverse('horizon:compute_user:images2:images:create')
 
 
 class ImagesAndSnapshotsTests(test.TestCase):

@@ -30,10 +30,10 @@ from openstack_dashboard.dashboards.compute_user.volume2.backups \
 
 class CreateBackupView(forms.ModalFormView):
     form_class = backup_forms.CreateBackupForm
-    template_name = 'compute/volume2/backups/create_backup.html'
+    template_name = 'compute_user/volume2/backups/create_backup.html'
     submit_label = _("Create Volume Backup")
-    submit_url = "horizon:compute:volume2:volumes:create_backup"
-    success_url = reverse_lazy("horizon:compute:volume2:backups_tab")
+    submit_url = "horizon:compute_user:volume2:volumes:create_backup"
+    success_url = reverse_lazy("horizon:compute_user:volume2:backups_tab")
     page_title = _("Create Volume Backup")
 
     def get_context_data(self, **kwargs):
@@ -79,15 +79,15 @@ class BackupDetailView(tabs.TabView):
 
     @staticmethod
     def get_redirect_url():
-        return reverse('horizon:compute:volume2:index')
+        return reverse('horizon:compute_user:volume2:index')
 
 
 class RestoreBackupView(forms.ModalFormView):
     form_class = backup_forms.RestoreBackupForm
-    template_name = 'compute/volume2/backups/restore_backup.html'
+    template_name = 'compute_user/volume2/backups/restore_backup.html'
     submit_label = _("Restore Backup to Volume")
-    submit_url = "horizon:compute:volume2:backups:restore"
-    success_url = reverse_lazy('horizon:compute:volume2:index')
+    submit_url = "horizon:compute_user:volume2:backups:restore"
+    success_url = reverse_lazy('horizon:compute_user:volume2:index')
     page_title = _("Restore Volume Backup")
 
     def get_context_data(self, **kwargs):

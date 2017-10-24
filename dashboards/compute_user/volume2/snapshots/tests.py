@@ -26,8 +26,8 @@ from openstack_dashboard.test import helpers as test
 from openstack_dashboard.usage import quotas
 
 
-INDEX_URL = reverse('horizon:compute:volume2:index')
-VOLUME_SNAPSHOTS_TAB_URL = reverse('horizon:compute:volume2:snapshots_tab')
+INDEX_URL = reverse('horizon:compute_user:volume2:index')
+VOLUME_SNAPSHOTS_TAB_URL = reverse('horizon:compute_user:volume2:snapshots_tab')
 
 
 class VolumeSnapshotsViewTests(test.TestCase):
@@ -46,11 +46,11 @@ class VolumeSnapshotsViewTests(test.TestCase):
             AndReturn(usage_limit)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:'
+        url = reverse('horizon:compute_user:volume2:'
                       'volumes:create_snapshot', args=[volume.id])
         res = self.client.get(url)
 
-        self.assertTemplateUsed(res, 'compute/volume2/volumes/'
+        self.assertTemplateUsed(res, 'compute_user/volume2/volumes/'
                                 'create_snapshot.html')
 
     @test.create_stubs({cinder: ('volume_get',
@@ -74,7 +74,7 @@ class VolumeSnapshotsViewTests(test.TestCase):
                     'volume_id': volume.id,
                     'name': snapshot.name,
                     'description': snapshot.description}
-        url = reverse('horizon:compute:volume2:volumes:create_snapshot',
+        url = reverse('horizon:compute_user:volume2:volumes:create_snapshot',
                       args=[volume.id])
         res = self.client.post(url, formData)
         self.assertRedirectsNoFollow(res, VOLUME_SNAPSHOTS_TAB_URL)
@@ -100,7 +100,7 @@ class VolumeSnapshotsViewTests(test.TestCase):
                     'volume_id': volume.id,
                     'name': snapshot.name,
                     'description': snapshot.description}
-        url = reverse('horizon:compute:volume2:volumes:create_snapshot',
+        url = reverse('horizon:compute_user:volume2:volumes:create_snapshot',
                       args=[volume.id])
         res = self.client.post(url, formData)
         self.assertRedirectsNoFollow(res, VOLUME_SNAPSHOTS_TAB_URL)
@@ -145,7 +145,7 @@ class VolumeSnapshotsViewTests(test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:snapshots:detail',
+        url = reverse('horizon:compute_user:volume2:snapshots:detail',
                       args=[snapshot.id])
         res = self.client.get(url)
 
@@ -161,7 +161,7 @@ class VolumeSnapshotsViewTests(test.TestCase):
             AndRaise(self.exceptions.cinder)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:snapshots:detail',
+        url = reverse('horizon:compute_user:volume2:snapshots:detail',
                       args=[snapshot.id])
         res = self.client.get(url)
 
@@ -180,7 +180,7 @@ class VolumeSnapshotsViewTests(test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:snapshots:detail',
+        url = reverse('horizon:compute_user:volume2:snapshots:detail',
                       args=[snapshot.id])
         res = self.client.get(url)
 
@@ -203,7 +203,7 @@ class VolumeSnapshotsViewTests(test.TestCase):
         formData = {'method': 'UpdateSnapshotForm',
                     'name': snapshot.name,
                     'description': snapshot.description}
-        url = reverse(('horizon:compute:volume2:snapshots:update'),
+        url = reverse(('horizon:compute_user:volume2:snapshots:update'),
                       args=[snapshot.id])
         res = self.client.post(url, formData)
         self.assertRedirectsNoFollow(res, INDEX_URL)

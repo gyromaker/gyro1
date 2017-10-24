@@ -110,7 +110,7 @@ class RebuildInstanceForm(forms.SelfHandlingForm):
                                     disk_config)
             messages.info(request, _('Rebuilding instance %s.') % instance)
         except Exception:
-            redirect = reverse('horizon:compute:vminstance2:index')
+            redirect = reverse('horizon:compute_user:vminstance2:index')
             exceptions.handle(request, _("Unable to rebuild instance."),
                               redirect=redirect)
         return True
@@ -161,7 +161,7 @@ class DecryptPasswordInstanceForm(forms.SelfHandlingForm):
                     label=_("Password"),
                     required=False)
         except Exception:
-            redirect = reverse('horizon:compute:vminstance2:index')
+            redirect = reverse('horizon:compute_user:vminstance2:index')
             _error = _("Unable to retrieve instance password.")
             exceptions.handle(request, _error, redirect=redirect)
 
@@ -221,7 +221,7 @@ class AttachVolume(forms.SelfHandlingForm):
                                                    "dev": attach.device}
             messages.info(request, message)
         except Exception:
-            redirect = reverse('horizon:compute:vminstance2:index')
+            redirect = reverse('horizon:compute_user:vminstance2:index')
             exceptions.handle(request,
                               _('Unable to attach volume.'),
                               redirect=redirect)
@@ -255,7 +255,7 @@ class DetachVolume(forms.SelfHandlingForm):
 
             self.fields['volume'].choices = volumes
         except Exception:
-            redirect = reverse('horizon:compute:vminstance2:index')
+            redirect = reverse('horizon:compute_user:vminstance2:index')
             exceptions.handle(self.request, _("Unable to detach volume."),
                               redirect=redirect)
 
@@ -276,7 +276,7 @@ class DetachVolume(forms.SelfHandlingForm):
                                         "inst": instance_id}
             messages.info(request, message)
         except Exception:
-            redirect = reverse('horizon:compute:vminstance2:index')
+            redirect = reverse('horizon:compute_user:vminstance2:index')
             exceptions.handle(request,
                               _("Unable to detach volume."),
                               redirect=redirect)
@@ -301,7 +301,7 @@ class AttachInterface(forms.SelfHandlingForm):
             msg = _('Attaching interface for instance %s.') % instance_id
             messages.success(request, msg)
         except Exception:
-            redirect = reverse('horizon:compute:vminstance2:index')
+            redirect = reverse('horizon:compute_user:vminstance2:index')
             exceptions.handle(request, _("Unable to attach interface."),
                               redirect=redirect)
         return True
@@ -342,7 +342,7 @@ class DetachInterface(forms.SelfHandlingForm):
                     '%(instance)s.') % {'port': port, 'instance': instance_id}
             messages.success(request, msg)
         except Exception:
-            redirect = reverse('horizon:compute:vminstance2:index')
+            redirect = reverse('horizon:compute_user:vminstance2:index')
             exceptions.handle(request, _("Unable to detach interface."),
                               redirect=redirect)
         return True

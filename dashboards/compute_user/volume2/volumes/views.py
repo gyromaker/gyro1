@@ -86,7 +86,7 @@ class DetailView(tabs.TabView):
         return volume
 
     def get_redirect_url(self):
-        return reverse('horizon:compute:volume2:index')
+        return reverse('horizon:compute_user:volume2:index')
 
     def get_tabs(self, request, *args, **kwargs):
         volume = self.get_data()
@@ -95,10 +95,10 @@ class DetailView(tabs.TabView):
 
 class CreateView(forms.ModalFormView):
     form_class = project_forms.CreateForm
-    template_name = 'compute/volume2/volumes/create.html'
+    template_name = 'compute_user/volume2/volumes/create.html'
     submit_label = _("Create Volume")
-    submit_url = reverse_lazy("horizon:compute:volume2:volumes:create")
-    success_url = reverse_lazy('horizon:compute:volume2:volumes_tab')
+    submit_url = reverse_lazy("horizon:compute_user:volume2:volumes:create")
+    success_url = reverse_lazy('horizon:compute_user:volume2:volumes_tab')
     page_title = _("Create Volume")
 
     def get_initial(self):
@@ -149,10 +149,10 @@ class CreateView(forms.ModalFormView):
 
 class ExtendView(forms.ModalFormView):
     form_class = project_forms.ExtendForm
-    template_name = 'compute/volume2/volumes/extend.html'
+    template_name = 'compute_user/volume2/volumes/extend.html'
     submit_label = _("Extend Volume")
-    submit_url = "horizon:compute:volume2:volumes:extend"
-    success_url = reverse_lazy("horizon:compute:volume2:index")
+    submit_url = "horizon:compute_user:volume2:volumes:extend"
+    success_url = reverse_lazy("horizon:compute_user:volume2:index")
     page_title = _("Extend Volume")
 
     def get_object(self):
@@ -189,9 +189,9 @@ class ExtendView(forms.ModalFormView):
 
 class CreateSnapshotView(forms.ModalFormView):
     form_class = project_forms.CreateSnapshotForm
-    template_name = 'compute/volume2/volumes/create_snapshot.html'
-    submit_url = "horizon:compute:volume2:volumes:create_snapshot"
-    success_url = reverse_lazy('horizon:compute:volume2:snapshots_tab')
+    template_name = 'compute_user/volume2/volumes/create_snapshot.html'
+    submit_url = "horizon:compute_user:volume2:volumes:create_snapshot"
+    success_url = reverse_lazy('horizon:compute_user:volume2:snapshots_tab')
     page_title = _("Create Volume Snapshot")
 
     def get_context_data(self, **kwargs):
@@ -221,10 +221,10 @@ class CreateSnapshotView(forms.ModalFormView):
 
 class UploadToImageView(forms.ModalFormView):
     form_class = project_forms.UploadToImageForm
-    template_name = 'compute/volume2/volumes/upload_to_image.html'
+    template_name = 'compute_user/volume2/volumes/upload_to_image.html'
     submit_label = _("Upload")
-    submit_url = "horizon:compute:volume2:volumes:upload_to_image"
-    success_url = reverse_lazy("horizon:compute:volume2:index")
+    submit_url = "horizon:compute_user:volume2:volumes:upload_to_image"
+    success_url = reverse_lazy("horizon:compute_user:volume2:index")
     page_title = _("Upload Volume to Image")
 
     @memoized.memoized_method
@@ -259,11 +259,11 @@ class UploadToImageView(forms.ModalFormView):
 
 class CreateTransferView(forms.ModalFormView):
     form_class = project_forms.CreateTransferForm
-    template_name = 'compute/volume2/volumes/create_transfer.html'
-    success_url = reverse_lazy('horizon:compute:volume2:volumes_tab')
+    template_name = 'compute_user/volume2/volumes/create_transfer.html'
+    success_url = reverse_lazy('horizon:compute_user:volume2:volumes_tab')
     modal_id = "create_volume_transfer_modal"
     submit_label = _("Create Volume Transfer")
-    submit_url = "horizon:compute:volume2:volumes:create_transfer"
+    submit_url = "horizon:compute_user:volume2:volumes:create_transfer"
     page_title = _("Create Volume Transfer")
 
     def get_context_data(self, *args, **kwargs):
@@ -279,21 +279,21 @@ class CreateTransferView(forms.ModalFormView):
 
 class AcceptTransferView(forms.ModalFormView):
     form_class = project_forms.AcceptTransferForm
-    template_name = 'compute/volume2/volumes/accept_transfer.html'
-    success_url = reverse_lazy('horizon:compute:volume2:volumes_tab')
+    template_name = 'compute_user/volume2/volumes/accept_transfer.html'
+    success_url = reverse_lazy('horizon:compute_user:volume2:volumes_tab')
     modal_id = "accept_volume_transfer_modal"
     submit_label = _("Accept Volume Transfer")
     submit_url = reverse_lazy(
-        "horizon:compute:volume2:volumes:accept_transfer")
+        "horizon:compute_user:volume2:volumes:accept_transfer")
     page_title = _("Accept Volume Transfer")
 
 
 class ShowTransferView(forms.ModalFormView):
     form_class = project_forms.ShowTransferForm
-    template_name = 'compute/volume2/volumes/show_transfer.html'
-    success_url = reverse_lazy('horizon:compute:volume2:volumes_tab')
+    template_name = 'compute_user/volume2/volumes/show_transfer.html'
+    success_url = reverse_lazy('horizon:compute_user:volume2:volumes_tab')
     modal_id = "show_volume_transfer_modal"
-    submit_url = "horizon:compute:volume2:volumes:show_transfer"
+    submit_url = "horizon:compute_user:volume2:volumes:show_transfer"
     cancel_label = _("Close")
     download_label = _("Download transfer credentials")
     page_title = _("Volume Transfer Details")
@@ -318,7 +318,7 @@ class ShowTransferView(forms.ModalFormView):
             context['transfer_id'], context['auth_key']])
         context['download_label'] = self.download_label
         context['download_url'] = reverse(
-            'horizon:compute:volume2:volumes:download_transfer_creds',
+            'horizon:compute_user:volume2:volumes:download_transfer_creds',
             args=[context['transfer_id'], context['auth_key']]
         )
         return context
@@ -333,9 +333,9 @@ class ShowTransferView(forms.ModalFormView):
 class UpdateView(forms.ModalFormView):
     form_class = project_forms.UpdateForm
     modal_id = "update_volume_modal"
-    template_name = 'compute/volume2/volumes/update.html'
-    submit_url = "horizon:compute:volume2:volumes:update"
-    success_url = reverse_lazy("horizon:compute:volume2:index")
+    template_name = 'compute_user/volume2/volumes/update.html'
+    submit_url = "horizon:compute_user:volume2:volumes:update"
+    success_url = reverse_lazy("horizon:compute_user:volume2:index")
     page_title = _("Edit Volume")
 
     def get_object(self):
@@ -345,7 +345,7 @@ class UpdateView(forms.ModalFormView):
                 self._object = cinder.volume_get(self.request, vol_id)
             except Exception:
                 msg = _('Unable to retrieve volume.')
-                url = reverse('horizon:compute:volume2:index')
+                url = reverse('horizon:compute_user:volume2:index')
                 exceptions.handle(self.request, msg, redirect=url)
         return self._object
 
@@ -369,9 +369,9 @@ class EditAttachmentsView(tables.DataTableView, forms.ModalFormView):
     form_class = project_forms.AttachForm
     form_id = "attach_volume_form"
     modal_id = "attach_volume_modal"
-    template_name = 'compute/volume2/volumes/attach.html'
-    submit_url = "horizon:compute:volume2:volumes:attach"
-    success_url = reverse_lazy("horizon:compute:volume2:index")
+    template_name = 'compute_user/volume2/volumes/attach.html'
+    submit_url = "horizon:compute_user:volume2:volumes:attach"
+    success_url = reverse_lazy("horizon:compute_user:volume2:index")
     page_title = _("Manage Volume Attachments")
 
     @memoized.memoized_method
@@ -441,10 +441,10 @@ class EditAttachmentsView(tables.DataTableView, forms.ModalFormView):
 class RetypeView(forms.ModalFormView):
     form_class = project_forms.RetypeForm
     modal_id = "retype_volume_modal"
-    template_name = 'compute/volume2/volumes/retype.html'
+    template_name = 'compute_user/volume2/volumes/retype.html'
     submit_label = _("Change Volume Type")
-    submit_url = "horizon:compute:volume2:volumes:retype"
-    success_url = reverse_lazy("horizon:compute:volume2:index")
+    submit_url = "horizon:compute_user:volume2:volumes:retype"
+    success_url = reverse_lazy("horizon:compute_user:volume2:index")
     page_title = _("Change Volume Type")
 
     @memoized.memoized_method
@@ -478,7 +478,7 @@ class RetypeView(forms.ModalFormView):
 
 
 class EncryptionDetailView(generic.TemplateView):
-    template_name = 'compute/volume2/volumes/encryption_detail.html'
+    template_name = 'compute_user/volume2/volumes/encryption_detail.html'
     page_title = _("Volume Encryption Details: {{ volume.name }}")
 
     def get_context_data(self, **kwargs):
@@ -519,7 +519,7 @@ class EncryptionDetailView(generic.TemplateView):
         return volume
 
     def get_redirect_url(self):
-        return reverse('horizon:compute:volume2:index')
+        return reverse('horizon:compute_user:volume2:index')
 
 
 class DownloadTransferCreds(generic.View):

@@ -183,7 +183,7 @@ def vnc(request, instance_id):
         console_url = project_console.get_console(request, 'VNC', instance)[1]
         return shortcuts.redirect(console_url)
     except Exception:
-        redirect = reverse("horizon:compute:vminstance2:index")
+        redirect = reverse("horizon:compute_user:vminstance2:index")
         msg = _('Unable to get VNC console for instance "%s".') % instance_id
         exceptions.handle(request, msg, redirect=redirect)
 
@@ -195,7 +195,7 @@ def spice(request, instance_id):
                                                   instance)[1]
         return shortcuts.redirect(console_url)
     except Exception:
-        redirect = reverse("horizon:compute:vminstance2:index")
+        redirect = reverse("horizon:compute_user:vminstance2:index")
         msg = _('Unable to get SPICE console for instance "%s".') % instance_id
         exceptions.handle(request, msg, redirect=redirect)
 
@@ -206,13 +206,13 @@ def rdp(request, instance_id):
         console_url = project_console.get_console(request, 'RDP', instance)[1]
         return shortcuts.redirect(console_url)
     except Exception:
-        redirect = reverse("horizon:compute:vminstance2:index")
+        redirect = reverse("horizon:compute_user:vminstance2:index")
         msg = _('Unable to get RDP console for instance "%s".') % instance_id
         exceptions.handle(request, msg, redirect=redirect)
 
 
 class SerialConsoleView(generic.TemplateView):
-    template_name = 'compute/vminstance2/serial_console.html'
+    template_name = 'compute_user/vminstance2/serial_console.html'
 
     def get_context_data(self, **kwargs):
         context = super(SerialConsoleView, self).get_context_data(**kwargs)
@@ -242,7 +242,7 @@ class SerialConsoleView(generic.TemplateView):
 
 class UpdateView(workflows.WorkflowView):
     workflow_class = project_workflows.UpdateInstance
-    success_url = reverse_lazy("horizon:compute:vminstance2:index")
+    success_url = reverse_lazy("horizon:compute_user:vminstance2:index")
 
     def get_context_data(self, **kwargs):
         context = super(UpdateView, self).get_context_data(**kwargs)
@@ -255,7 +255,7 @@ class UpdateView(workflows.WorkflowView):
         try:
             return api.nova.server_get(self.request, instance_id)
         except Exception:
-            redirect = reverse("horizon:compute:vminstance2:index")
+            redirect = reverse("horizon:compute_user:vminstance2:index")
             msg = _('Unable to retrieve instance details.')
             exceptions.handle(self.request, msg, redirect=redirect)
 
@@ -268,8 +268,8 @@ class UpdateView(workflows.WorkflowView):
 
 class RebuildView(forms.ModalFormView):
     form_class = project_forms.RebuildInstanceForm
-    template_name = 'compute/vminstance2/rebuild.html'
-    success_url = reverse_lazy('horizon:compute:vminstance2:index')
+    template_name = 'compute_user/vminstance2/rebuild.html'
+    success_url = reverse_lazy('horizon:compute_user:vminstance2:index')
     page_title = _("Rebuild Instance")
     submit_label = page_title
 
@@ -285,8 +285,8 @@ class RebuildView(forms.ModalFormView):
 
 class DecryptPasswordView(forms.ModalFormView):
     form_class = project_forms.DecryptPasswordInstanceForm
-    template_name = 'compute/vminstance2/decryptpassword.html'
-    success_url = reverse_lazy('horizon:compute:vminstance2:index')
+    template_name = 'compute_user/vminstance2/decryptpassword.html'
+    success_url = reverse_lazy('horizon:compute_user:vminstance2:index')
     page_title = _("Retrieve Instance Password")
 
     def get_context_data(self, **kwargs):
@@ -303,7 +303,7 @@ class DecryptPasswordView(forms.ModalFormView):
 class DetailView(tabs.TabView):
     tab_group_class = project_tabs.InstanceDetailTabs
     template_name = 'horizon/common/_detail.html'
-    redirect_url = 'horizon:compute:vminstance2:index'
+    redirect_url = 'horizon:compute_user:vminstance2:index'
     page_title = "{{ instance.name|default:instance.id }}"
     image_url = 'horizon:project:images:images:detail'
     volume_url = 'horizon:project:volumes:volumes:detail'
@@ -390,7 +390,7 @@ class DetailView(tabs.TabView):
 
 class ResizeView(workflows.WorkflowView):
     workflow_class = project_workflows.ResizeInstance
-    success_url = reverse_lazy("horizon:compute:vminstance2:index")
+    success_url = reverse_lazy("horizon:compute_user:vminstance2:index")
 
     def get_context_data(self, **kwargs):
         context = super(ResizeView, self).get_context_data(**kwargs)
@@ -403,7 +403,7 @@ class ResizeView(workflows.WorkflowView):
         try:
             instance = api.nova.server_get(self.request, instance_id)
         except Exception:
-            redirect = reverse("horizon:compute:vminstance2:index")
+            redirect = reverse("horizon:compute_user:vminstance2:index")
             msg = _('Unable to retrieve instance details.')
             exceptions.handle(self.request, msg, redirect=redirect)
         flavor_id = instance.flavor['id']
@@ -427,7 +427,7 @@ class ResizeView(workflows.WorkflowView):
             flavors = api.nova.flavor_list(self.request)
             return OrderedDict((str(flavor.id), flavor) for flavor in flavors)
         except Exception:
-            redirect = reverse("horizon:compute:vminstance2:index")
+            redirect = reverse("horizon:compute_user:vminstance2:index")
             exceptions.handle(self.request,
                               _('Unable to retrieve flavors.'),
                               redirect=redirect)
@@ -447,11 +447,11 @@ class ResizeView(workflows.WorkflowView):
 
 class AttachInterfaceView(forms.ModalFormView):
     form_class = project_forms.AttachInterface
-    template_name = 'compute/vminstance2/attach_interface.html'
+    template_name = 'compute_user/vminstance2/attach_interface.html'
     page_title = _("Attach Interface")
     form_id = "attach_interface_form"
     submit_label = _("Attach Interface")
-    success_url = reverse_lazy('horizon:compute:vminstance2:index')
+    success_url = reverse_lazy('horizon:compute_user:vminstance2:index')
 
     def get_context_data(self, **kwargs):
         context = super(AttachInterfaceView, self).get_context_data(**kwargs)
@@ -460,18 +460,18 @@ class AttachInterfaceView(forms.ModalFormView):
 
     def get_initial(self):
         args = {'instance_id': self.kwargs['instance_id']}
-        submit_url = "horizon:compute:vminstance2:attach_interface"
+        submit_url = "horizon:compute_user:vminstance2:attach_interface"
         self.submit_url = reverse(submit_url, kwargs=args)
         return args
 
 
 class AttachVolumeView(forms.ModalFormView):
     form_class = project_forms.AttachVolume
-    template_name = 'compute/vminstance2/attach_volume.html'
+    template_name = 'compute_user/vminstance2/attach_volume.html'
     page_title = _("Attach Volume")
     modal_id = "attach_volume_modal"
     submit_label = _("Attach Volume")
-    success_url = reverse_lazy('horizon:compute:vminstance2:index')
+    success_url = reverse_lazy('horizon:compute_user:vminstance2:index')
 
     @memoized.memoized_method
     def get_object(self):
@@ -484,7 +484,7 @@ class AttachVolumeView(forms.ModalFormView):
 
     def get_initial(self):
         args = {'instance_id': self.kwargs['instance_id']}
-        submit_url = "horizon:compute:vminstance2:attach_volume"
+        submit_url = "horizon:compute_user:vminstance2:attach_volume"
         self.submit_url = reverse(submit_url, kwargs=args)
         try:
             volume_list = api.cinder.volume_list(self.request)
@@ -503,11 +503,11 @@ class AttachVolumeView(forms.ModalFormView):
 
 class DetachVolumeView(forms.ModalFormView):
     form_class = project_forms.DetachVolume
-    template_name = 'compute/vminstance2/detach_volume.html'
+    template_name = 'compute_user/vminstance2/detach_volume.html'
     page_title = _("Detach Volume")
     modal_id = "detach_volume_modal"
     submit_label = _("Detach Volume")
-    success_url = reverse_lazy('horizon:compute:vminstance2:index')
+    success_url = reverse_lazy('horizon:compute_user:vminstance2:index')
 
     @memoized.memoized_method
     def get_object(self):
@@ -520,7 +520,7 @@ class DetachVolumeView(forms.ModalFormView):
 
     def get_initial(self):
         args = {'instance_id': self.kwargs['instance_id']}
-        submit_url = "horizon:compute:vminstance2:detach_volume"
+        submit_url = "horizon:compute_user:vminstance2:detach_volume"
         self.submit_url = reverse(submit_url, kwargs=args)
         return {"instance_id": self.kwargs["instance_id"]}
 
@@ -532,11 +532,11 @@ class DetachVolumeView(forms.ModalFormView):
 
 class DetachInterfaceView(forms.ModalFormView):
     form_class = project_forms.DetachInterface
-    template_name = 'compute/vminstance2/detach_interface.html'
+    template_name = 'compute_user/vminstance2/detach_interface.html'
     page_title = _("Detach Interface")
     form_id = "detach_interface_form"
     submit_label = _("Detach Interface")
-    success_url = reverse_lazy('horizon:compute:vminstance2:index')
+    success_url = reverse_lazy('horizon:compute_user:vminstance2:index')
 
     def get_context_data(self, **kwargs):
         context = super(DetachInterfaceView, self).get_context_data(**kwargs)
@@ -545,6 +545,6 @@ class DetachInterfaceView(forms.ModalFormView):
 
     def get_initial(self):
         args = {"instance_id": self.kwargs["instance_id"]}
-        submit_url = "horizon:compute:vminstance2:detach_interface"
+        submit_url = "horizon:compute_user:vminstance2:detach_interface"
         self.submit_url = reverse(submit_url, kwargs=args)
         return args

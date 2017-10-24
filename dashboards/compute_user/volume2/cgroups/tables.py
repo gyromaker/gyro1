@@ -23,7 +23,7 @@ from openstack_dashboard import policy
 class CreateVolumeCGroup(policy.PolicyTargetMixin, tables.LinkAction):
     name = "create"
     verbose_name = _("Create Consistency Group")
-    url = "horizon:compute:volume2:cgroups:create"
+    url = "horizon:compute_user:volume2:cgroups:create"
     classes = ("ajax-modal",)
     icon = "plus"
     policy_rules = (("volume", "consistencygroup:create"),)
@@ -32,7 +32,7 @@ class CreateVolumeCGroup(policy.PolicyTargetMixin, tables.LinkAction):
 class DeleteVolumeCGroup(policy.PolicyTargetMixin, tables.LinkAction):
     name = "deletecg"
     verbose_name = _("Delete Consistency Group")
-    url = "horizon:compute:volume2:cgroups:delete"
+    url = "horizon:compute_user:volume2:cgroups:delete"
     classes = ("ajax-modal", "btn-danger")
     policy_rules = (("volume", "consistencygroup:delete"), )
 
@@ -40,7 +40,7 @@ class DeleteVolumeCGroup(policy.PolicyTargetMixin, tables.LinkAction):
 class RemoveAllVolumes(policy.PolicyTargetMixin, tables.LinkAction):
     name = "remove_vols"
     verbose_name = _("Remove Volumes from Consistency Group")
-    url = "horizon:compute:volume2:cgroups:remove_volumes"
+    url = "horizon:compute_user:volume2:cgroups:remove_volumes"
     classes = ("ajax-modal",)
     policy_rules = (("volume", "consistencygroup:update"), )
 
@@ -48,7 +48,7 @@ class RemoveAllVolumes(policy.PolicyTargetMixin, tables.LinkAction):
 class EditVolumeCGroup(policy.PolicyTargetMixin, tables.LinkAction):
     name = "edit"
     verbose_name = _("Edit Consistency Group")
-    url = "horizon:compute:volume2:cgroups:update"
+    url = "horizon:compute_user:volume2:cgroups:update"
     classes = ("ajax-modal",)
     policy_rules = (("volume", "consistencygroup:update"),)
 
@@ -56,7 +56,7 @@ class EditVolumeCGroup(policy.PolicyTargetMixin, tables.LinkAction):
 class ManageVolumes(policy.PolicyTargetMixin, tables.LinkAction):
     name = "manage"
     verbose_name = _("Manage Volumes")
-    url = "horizon:compute:volume2:cgroups:manage"
+    url = "horizon:compute_user:volume2:cgroups:manage"
     classes = ("ajax-modal",)
     policy_rules = (("volume", "consistencygroup:update"),)
 
@@ -70,7 +70,7 @@ class ManageVolumes(policy.PolicyTargetMixin, tables.LinkAction):
 class CreateSnapshot(policy.PolicyTargetMixin, tables.LinkAction):
     name = "create_snapshot"
     verbose_name = _("Create Snapshot")
-    url = "horizon:compute:volume2:cgroups:create_snapshot"
+    url = "horizon:compute_user:volume2:cgroups:create_snapshot"
     classes = ("ajax-modal",)
     policy_rules = (("volume", "consistencygroup:create_cgsnapshot"),)
 
@@ -84,7 +84,7 @@ class CreateSnapshot(policy.PolicyTargetMixin, tables.LinkAction):
 class CloneCGroup(policy.PolicyTargetMixin, tables.LinkAction):
     name = "clone_cgroup"
     verbose_name = _("Clone Consistency Group")
-    url = "horizon:compute:volume2:cgroups:clone_cgroup"
+    url = "horizon:compute_user:volume2:cgroups:clone_cgroup"
     classes = ("ajax-modal",)
     policy_rules = (("volume", "consistencygroup:create"),)
 
@@ -142,7 +142,7 @@ class VolumeCGroupsTable(tables.DataTable):
 
     name = tables.WrappingColumn("name",
                                  verbose_name=_("Name"),
-                                 link="horizon:compute:volume2:cgroups:detail")
+                                 link="horizon:compute_user:volume2:cgroups:detail")
     description = tables.Column("description",
                                 verbose_name=_("Description"),
                                 truncate=40)

@@ -78,14 +78,14 @@ class DeleteNetwork(policy.PolicyTargetMixin, CheckNetworkEditable,
         except Exception:
             msg = _('Failed to delete network %s')
             LOG.info(msg, network_id)
-            redirect = reverse("horizon:network:networks2:index")
+            redirect = reverse("horizon:network_user:networks2:index")
             exceptions.handle(request, msg % network_name, redirect=redirect)
 
 
 class CreateNetwork(tables.LinkAction):
     name = "create"
     verbose_name = _("Create Network")
-    url = "horizon:network:networks2:create"
+    url = "horizon:network_user:networks2:create"
     classes = ("ajax-modal",)
     icon = "plus"
     policy_rules = (("network", "create_network"),)
@@ -109,7 +109,7 @@ class EditNetwork(policy.PolicyTargetMixin, CheckNetworkEditable,
                   tables.LinkAction):
     name = "update"
     verbose_name = _("Edit Network")
-    url = "horizon:network:networks2:update"
+    url = "horizon:network_user:networks2:update"
     classes = ("ajax-modal",)
     icon = "pencil"
     policy_rules = (("network", "update_network"),)
@@ -119,7 +119,7 @@ class CreateSubnet(policy.PolicyTargetMixin, CheckNetworkEditable,
                    tables.LinkAction):
     name = "subnet"
     verbose_name = _("Add Subnet")
-    url = "horizon:network:networks2:addsubnet"
+    url = "horizon:network_user:networks2:addsubnet"
     classes = ("ajax-modal",)
     icon = "plus"
     policy_rules = (("network", "create_subnet"),)
@@ -143,7 +143,7 @@ class CreateSubnet(policy.PolicyTargetMixin, CheckNetworkEditable,
 
 
 def get_subnets(network):
-    template_name = 'network/networks2/_network_ips.html'
+    template_name = 'network_user/networks2/_network_ips.html'
     context = {"subnets": network.subnets}
     return template.loader.render_to_string(template_name, context)
 
@@ -176,7 +176,7 @@ class ProjectNetworksFilterAction(tables.FilterAction):
 class NetworksTable(tables.DataTable):
     name = tables.WrappingColumn("name_or_id",
                                  verbose_name=_("Name"),
-                                 link='horizon:network:networks2:detail')
+                                 link='horizon:network_user:networks2:detail')
     subnets = tables.Column(get_subnets,
                             verbose_name=_("Subnets Associated"),)
     shared = tables.Column("shared", verbose_name=_("Shared"),

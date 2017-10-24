@@ -20,7 +20,7 @@ from horizon import tabs
 class OverviewTab(tabs.Tab):
     name = _("Overview")
     slug = "overview"
-    template_name = ("compute/volume2/volumes/_detail_overview.html")
+    template_name = ("compute_user/volume2/volumes/_detail_overview.html")
 
     def get_context_data(self, request):
         return {"volume": self.tab_group.kwargs['volume']}

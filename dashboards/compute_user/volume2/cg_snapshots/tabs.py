@@ -19,14 +19,14 @@ from horizon import tabs
 class OverviewTab(tabs.Tab):
     name = _("Overview")
     slug = "overview"
-    template_name = ("compute/volume2/cg_snapshots/_detail_overview.html")
+    template_name = ("compute_user/volume2/cg_snapshots/_detail_overview.html")
 
     def get_context_data(self, request):
         cg_snapshot = self.tab_group.kwargs['cg_snapshot']
         return {"cg_snapshot": cg_snapshot}
 
     def get_redirect_url(self):
-        return reverse('horizon:compute:volume2:cg_snapshots:index')
+        return reverse('horizon:compute_user:volume2:cg_snapshots:index')
 
 
 class CGSnapshotsDetailTabs(tabs.TabGroup):

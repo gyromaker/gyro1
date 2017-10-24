@@ -48,7 +48,7 @@ from openstack_dashboard.usage import quotas
 
 
 INDEX_TEMPLATE = 'horizon/common/_data_table_view.html'
-INDEX_URL = reverse('horizon:compute:vminstance2:index')
+INDEX_URL = reverse('horizon:compute_user:vminstance2:index')
 SEC_GROUP_ROLE_PREFIX = \
     workflows.update_instance.INSTANCE_SEC_GROUP_SLUG + "_role_"
 AVAILABLE = api.cinder.VOLUME_STATE_AVAILABLE
@@ -970,7 +970,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                               security_groups_return=None,
                               flavor_exception=False):
 
-        url = reverse('horizon:compute:vminstance2:detail', args=[server.id])
+        url = reverse('horizon:compute_user:vminstance2:detail', args=[server.id])
         if qs:
             url += qs
 
@@ -1086,7 +1086,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         res = self._get_instance_details(server, qs)
         self.assertIn(tabs.ConsoleTab, res.context_data['tab_group'].tabs)
         self.assertTemplateUsed(res,
-                                'compute/vminstance2/_detail_console.html')
+                                'compute_user/vminstance2/_detail_console.html')
         console_tab_rendered = False
         for tab in res.context_data['tab_group'].get_loaded_tabs():
             if isinstance(tab, tabs.ConsoleTab):
@@ -1102,7 +1102,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         self.assertIsNone(tg.get_tab("console"))
         res = self._get_instance_details(server)
         self.assertTemplateNotUsed(res,
-                                   'compute/vminstance2/_detail_console.html')
+                                   'compute_user/vminstance2/_detail_console.html')
         for tab in res.context_data['tab_group'].get_loaded_tabs():
             self.assertNotIsInstance(tab, tabs.ConsoleTab)
 
@@ -1115,7 +1115,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:detail',
+        url = reverse('horizon:compute_user:vminstance2:detail',
                       args=[server.id])
         res = self.client.get(url)
 
@@ -1129,7 +1129,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
             .AndRaise(self.exceptions.nova_unauthorized)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:detail',
+        url = reverse('horizon:compute_user:vminstance2:detail',
                       args=[server.id])
 
         # Avoid the log message in the test
@@ -1148,7 +1148,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         server = self.servers.first()
         res = self._get_instance_details(server, flavor_exception=True)
         self.assertTemplateUsed(res,
-                                'compute/vminstance2/_detail_overview.html')
+                                'compute_user/vminstance2/_detail_overview.html')
         self.assertContains(res, "Not available")
 
     @helpers.create_stubs({api.nova: ('server_console_output',)})
@@ -1162,7 +1162,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:console',
+        url = reverse('horizon:compute_user:vminstance2:console',
                       args=[server.id])
         tg = tabs.InstanceDetailTabs(self.request, instance=server)
         qs = "?%s=%s" % (tg.param_name, tg.get_tab("log").get_id())
@@ -1182,7 +1182,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:console',
+        url = reverse('horizon:compute_user:vminstance2:console',
                       args=[server.id])
         tg = tabs.InstanceDetailTabs(self.request, instance=server)
         qs = "?%s=%s" % (tg.param_name, tg.get_tab("log").get_id())
@@ -1193,7 +1193,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
     def test_instance_log_invalid_input(self):
         server = self.servers.first()
 
-        url = reverse('horizon:compute:vminstance2:console',
+        url = reverse('horizon:compute_user:vminstance2:console',
                       args=[server.id])
         tg = tabs.InstanceDetailTabs(self.request, instance=server)
         for length in ["-5", "x"]:
@@ -1222,7 +1222,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:vnc',
+        url = reverse('horizon:compute_user:vminstance2:vnc',
                       args=[server.id])
         res = self.client.get(url)
         redirect = CONSOLE_URL
@@ -1239,7 +1239,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:vnc',
+        url = reverse('horizon:compute_user:vminstance2:vnc',
                       args=[server.id])
         res = self.client.get(url)
 
@@ -1263,7 +1263,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:spice',
+        url = reverse('horizon:compute_user:vminstance2:spice',
                       args=[server.id])
         res = self.client.get(url)
         redirect = CONSOLE_URL
@@ -1280,7 +1280,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:spice',
+        url = reverse('horizon:compute_user:vminstance2:spice',
                       args=[server.id])
         res = self.client.get(url)
 
@@ -1304,7 +1304,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:rdp',
+        url = reverse('horizon:compute_user:vminstance2:rdp',
                       args=[server.id])
         res = self.client.get(url)
         redirect = CONSOLE_URL
@@ -1322,7 +1322,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:rdp',
+        url = reverse('horizon:compute_user:vminstance2:rdp',
                       args=[server.id])
         res = self.client.get(url)
 
@@ -1394,7 +1394,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
             IsA(http.HttpRequest)).MultipleTimes().AndReturn(True)
 
         self.mox.ReplayAll()
-        url = reverse('horizon:compute:vminstance2:index')
+        url = reverse('horizon:compute_user:vminstance2:index')
         res = self.client.get(url)
         for server in servers:
             _action_id = ''.join(["instances__row_",
@@ -1414,11 +1414,11 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         api.nova.get_password(IsA(http.HttpRequest), server.id)\
             .AndReturn(enc_password)
         self.mox.ReplayAll()
-        url = reverse('horizon:compute:vminstance2:decryptpassword',
+        url = reverse('horizon:compute_user:vminstance2:decryptpassword',
                       args=[server.id,
                             server.key_name])
         res = self.client.get(url)
-        self.assertTemplateUsed(res, 'compute/vminstance2/decryptpassword.html')
+        self.assertTemplateUsed(res, 'compute_user/vminstance2/decryptpassword.html')
 
     @helpers.create_stubs({api.nova: ('get_password',)})
     def test_decrypt_instance_get_exception(self):
@@ -1427,7 +1427,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         api.nova.get_password(IsA(http.HttpRequest), server.id)\
             .AndRaise(self.exceptions.nova)
         self.mox.ReplayAll()
-        url = reverse('horizon:compute:vminstance2:decryptpassword',
+        url = reverse('horizon:compute_user:vminstance2:decryptpassword',
                       args=[server.id,
                             keypair])
         res = self.client.get(url)
@@ -1450,7 +1450,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:update', args=[server.id])
+        url = reverse('horizon:compute_user:vminstance2:update', args=[server.id])
         res = self.client.get(url)
 
         self.assertTemplateUsed(res, views.WorkflowView.template_name)
@@ -1464,7 +1464,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:update',
+        url = reverse('horizon:compute_user:vminstance2:update',
                       args=[server.id])
         res = self.client.get(url)
 
@@ -1476,7 +1476,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         formData = {'name': server_name,
                     default_role_field_name: 'member',
                     SEC_GROUP_ROLE_PREFIX + 'member': secgroups}
-        url = reverse('horizon:compute:vminstance2:update',
+        url = reverse('horizon:compute_user:vminstance2:update',
                       args=[server_id])
         return self.client.post(url, formData)
 
@@ -1636,7 +1636,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         params = urlencode({"source_type": "image_id",
                             "source_id": image.id})
         res = self.client.get("%s?%s" % (url, params))
@@ -1878,7 +1878,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.get(url)
 
         bootable_volumes = [v.id for v in self.volumes.list()
@@ -2031,7 +2031,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
             if test_with_multi_nics:
                 form_data['network'] = [self.networks.first().id,
                                         self.networks.get(name="net4")['id']]
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
 
         self.assertNoFormErrors(res)
@@ -2137,7 +2137,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         if test_with_multi_nics:
             form_data['network'] = [self.networks.first().id,
                                     self.networks.get(name="net4")['id']]
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
 
         self.assertNoFormErrors(res)
@@ -2310,7 +2310,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                      'config_drive': True}
         if test_with_profile:
             form_data['profile'] = self.policy_profiles.first().id
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
 
         self.assertNoFormErrors(res)
@@ -2438,7 +2438,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                      'config_drive': True}
         if test_with_profile:
             form_data['profile'] = self.policy_profiles.first().id
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
 
         self.assertNoFormErrors(res)
@@ -2528,7 +2528,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                      'availability_zone': avail_zone.zoneName,
                      'volume_type': '',
                      'count': 1}
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
 
         self.assertFormErrors(res, 1, "You must select an image.")
@@ -2668,7 +2668,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                      'config_drive': True}
         if test_with_profile:
             form_data['profile'] = self.policy_profiles.first().id
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
 
         self.assertNoFormErrors(res)
@@ -2760,7 +2760,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                      'profile': '',
                      'customization_script': ''}
 
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
 
         self.assertFormErrors(res, 3, "You must select a snapshot.")
@@ -2818,7 +2818,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.get(url)
 
         self.assertTemplateUsed(res, views.WorkflowView.template_name)
@@ -2950,7 +2950,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                      'config_drive': False}
         if test_with_profile:
             form_data['profile'] = self.policy_profiles.first().id
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
 
         self.assertRedirectsNoFollow(res, INDEX_URL)
@@ -3039,7 +3039,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                      'volume_id': volume_choice,
                      'device_name': device_name,
                      'count': 0}
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
 
         self.assertContains(res, "greater than or equal to 1")
@@ -3131,7 +3131,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                      'volume_id': volume_choice,
                      'device_name': device_name,
                      'count': 2}
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
 
         if resource == 'ram':
@@ -3240,7 +3240,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         if not keypair_require:
             form_data['keypair'] = keypair.name
 
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
         if keypair_require:
             msg = "This field is required"
@@ -3394,7 +3394,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                      'device_name': device_name,
                      'count': 1}
 
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
         self.assertNoFormErrors(res)
         widget_content = widget_class().render(**widget_attrs)
@@ -3526,7 +3526,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
             'device_name': device_name,
             'count': 1
         }
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
 
         res = self.client.post(url, form_data)
         self.assertContains(res, msg)
@@ -3756,7 +3756,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
             'network': self.networks.first().id,
             'count': 1
         }
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
 
         res = self.client.post(url, form_data)
         self.assertNoFormErrors(res)
@@ -3852,7 +3852,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.get(url)
         self.assertContains(
             res, "<option selected='selected' value='%(key)s'>"
@@ -3960,7 +3960,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:resize', args=[server.id])
+        url = reverse('horizon:compute_user:vminstance2:resize', args=[server.id])
         res = self.client.get(url)
 
         self.assertTemplateUsed(res, views.WorkflowView.template_name)
@@ -3985,7 +3985,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:resize',
+        url = reverse('horizon:compute_user:vminstance2:resize',
                       args=[server.id])
         res = self.client.get(url)
 
@@ -4003,7 +4003,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:resize',
+        url = reverse('horizon:compute_user:vminstance2:resize',
                       args=[server.id])
         res = self.client.get(url)
 
@@ -4034,7 +4034,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:resize', args=[server.id])
+        url = reverse('horizon:compute_user:vminstance2:resize', args=[server.id])
         res = self.client.get(url)
 
         self.assertTemplateUsed(res, views.WorkflowView.template_name)
@@ -4043,7 +4043,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         formData = {'flavor': flavor_id,
                     'default_role': 'member',
                     'disk_config': disk_config}
-        url = reverse('horizon:compute:vminstance2:resize',
+        url = reverse('horizon:compute_user:vminstance2:resize',
                       args=[server_id])
         return self.client.post(url, formData)
 
@@ -4113,10 +4113,10 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:rebuild', args=[server.id])
+        url = reverse('horizon:compute_user:vminstance2:rebuild', args=[server.id])
         res = self.client.get(url)
 
-        self.assertTemplateUsed(res, 'compute/vminstance2/rebuild.html')
+        self.assertTemplateUsed(res, 'compute_user/vminstance2/rebuild.html')
 
         password_field_label = 'Rebuild Password'
         if expect_password_fields:
@@ -4139,7 +4139,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
             form_data.update(password=password)
         if confirm_password is not None:
             form_data.update(confirm_password=confirm_password)
-        url = reverse('horizon:compute:vminstance2:rebuild',
+        url = reverse('horizon:compute_user:vminstance2:rebuild',
                       args=[server_id])
         return self.client.post(url, form_data)
 
@@ -4321,7 +4321,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         # update INDEX_URL with marker object
         params = "=".join([tables.InstancesTable._meta.pagination_param,
                            servers[page_size - 1].id])
-        next_page_url = "?".join([reverse('horizon:compute:vminstance2:index'),
+        next_page_url = "?".join([reverse('horizon:compute_user:vminstance2:index'),
                                   params])
         form_action = 'action="%s"' % next_page_url
 
@@ -4359,7 +4359,7 @@ class InstanceTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         # update INDEX_URL with marker object
         params = "=".join([tables.InstancesTable._meta.pagination_param,
                            servers[page_size - 1].id])
-        next_page_url = "?".join([reverse('horizon:compute:vminstance2:index'),
+        next_page_url = "?".join([reverse('horizon:compute_user:vminstance2:index'),
                                   params])
         formData = {'action': 'instances__delete__%s' % server.id}
         res = self.client.post(next_page_url, formData)
@@ -4693,12 +4693,12 @@ class ConsoleManagerTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:attach_interface',
+        url = reverse('horizon:compute_user:vminstance2:attach_interface',
                       args=[server.id])
         res = self.client.get(url)
 
         self.assertTemplateUsed(res,
-                                'compute/vminstance2/attach_interface.html')
+                                'compute_user/vminstance2/attach_interface.html')
 
     @helpers.create_stubs({api.neutron: ('network_list_for_tenant',),
                            api.nova: ('interface_attach',)})
@@ -4715,7 +4715,7 @@ class ConsoleManagerTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         form_data = {'instance_id': server.id,
                      'network': network[0].id}
 
-        url = reverse('horizon:compute:vminstance2:attach_interface',
+        url = reverse('horizon:compute_user:vminstance2:attach_interface',
                       args=[server.id])
         res = self.client.post(url, form_data)
 
@@ -4732,7 +4732,7 @@ class ConsoleManagerTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:attach_volume',
+        url = reverse('horizon:compute_user:vminstance2:attach_volume',
                       args=[server.id])
 
         res = self.client.get(url)
@@ -4744,7 +4744,7 @@ class ConsoleManagerTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         self.assertIsInstance(form.fields['volume'].widget,
                               forms.Select)
         self.assertTemplateUsed(res,
-                                'compute/vminstance2/attach_volume.html')
+                                'compute_user/vminstance2/attach_volume.html')
 
     @helpers.create_stubs({api.nova: ('instance_volume_attach', 'server_get'),
                            api.cinder: ('volume_list',)})
@@ -4759,7 +4759,7 @@ class ConsoleManagerTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                      "instance_id": server.id,
                      "device": None}
 
-        url = reverse('horizon:compute:vminstance2:attach_volume',
+        url = reverse('horizon:compute_user:vminstance2:attach_volume',
                       args=[server.id])
 
         res = self.client.post(url, form_data)
@@ -4776,7 +4776,7 @@ class ConsoleManagerTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:detach_volume',
+        url = reverse('horizon:compute_user:vminstance2:detach_volume',
                       args=[server.id])
 
         res = self.client.get(url)
@@ -4786,7 +4786,7 @@ class ConsoleManagerTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                               forms.Select)
         self.assertEqual(res.status_code, 200)
         self.assertTemplateUsed(res,
-                                'compute/vminstance2/detach_volume.html')
+                                'compute_user/vminstance2/detach_volume.html')
 
     @helpers.create_stubs({api.nova: ('server_get', 'instance_volumes_list',
                                       'instance_volume_detach')})
@@ -4801,7 +4801,7 @@ class ConsoleManagerTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         form_data = {"volume": volume[1].id,
                      "instance_id": server.id}
 
-        url = reverse('horizon:compute:vminstance2:detach_volume',
+        url = reverse('horizon:compute_user:vminstance2:detach_volume',
                       args=[server.id])
 
         res = self.client.post(url, form_data)
@@ -4817,12 +4817,12 @@ class ConsoleManagerTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:vminstance2:detach_interface',
+        url = reverse('horizon:compute_user:vminstance2:detach_interface',
                       args=[server.id])
         res = self.client.get(url)
 
         self.assertTemplateUsed(res,
-                                'compute/vminstance2/detach_interface.html')
+                                'compute_user/vminstance2/detach_interface.html')
 
     @helpers.create_stubs({api.neutron: ('port_list',),
                            api.nova: ('interface_detach',)})
@@ -4839,7 +4839,7 @@ class ConsoleManagerTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
         form_data = {'instance_id': server.id,
                      'port': port.id}
 
-        url = reverse('horizon:compute:vminstance2:detach_interface',
+        url = reverse('horizon:compute_user:vminstance2:detach_interface',
                       args=[server.id])
         res = self.client.post(url, form_data)
 
@@ -4983,7 +4983,7 @@ class ConsoleManagerTests(helpers.ResetImageAPIVersionMixin, helpers.TestCase):
                      'disk_config': 'AUTO',
                      'config_drive': False,
                      'profile': self.policy_profiles.first().id}
-        url = reverse('horizon:compute:vminstance2:launch')
+        url = reverse('horizon:compute_user:vminstance2:launch')
         res = self.client.post(url, form_data)
 
         self.assertRedirectsNoFollow(res, INDEX_URL)

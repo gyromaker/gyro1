@@ -24,7 +24,7 @@ from openstack_dashboard import policy
 
 
 def get_fixed_ips(port):
-    template_name = 'network/networks2/ports/_port_ips.html'
+    template_name = 'network_user/networks2/ports/_port_ips.html'
     context = {"ips": port.fixed_ips}
     return template.loader.render_to_string(template_name, context)
 
@@ -41,7 +41,7 @@ def get_attached(port):
 class UpdatePort(policy.PolicyTargetMixin, tables.LinkAction):
     name = "update"
     verbose_name = _("Edit Port")
-    url = "horizon:network:networks2:editport"
+    url = "horizon:network_user:networks2:editport"
     classes = ("ajax-modal",)
     icon = "pencil"
     policy_rules = (("network", "update_port"),)
@@ -67,7 +67,7 @@ STATUS_DISPLAY_CHOICES = (
 class PortsTable(tables.DataTable):
     name = tables.WrappingColumn("name_or_id",
                                  verbose_name=_("Name"),
-                                 link="horizon:network:networks2:ports:detail")
+                                 link="horizon:network_user:networks2:ports:detail")
     fixed_ips = tables.Column(get_fixed_ips, verbose_name=_("Fixed IPs"))
     attached = tables.Column(get_attached, verbose_name=_("Attached Device"))
     status = tables.Column("status",

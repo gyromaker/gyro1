@@ -383,7 +383,7 @@ class ToggleShelve(tables.BatchAction):
 class LaunchLink(tables.LinkAction):
     name = "launch"
     verbose_name = _("Launch Instance")
-    url = "horizon:compute:vminstance2:launch"
+    url = "horizon:compute_user:vminstance2:launch"
     classes = ("ajax-modal", "btn-launch")
     icon = "cloud-upload"
     policy_rules = (("compute", "compute:create"),)
@@ -426,7 +426,7 @@ class LaunchLink(tables.LinkAction):
 
 class LaunchLinkNG(LaunchLink):
     name = "launch-ng"
-    url = "horizon:compute:vminstance2:index"
+    url = "horizon:compute_user:vminstance2:index"
     ajax = False
     classes = ("btn-launch", )
 
@@ -447,7 +447,7 @@ class LaunchLinkNG(LaunchLink):
 class EditInstance(policy.PolicyTargetMixin, tables.LinkAction):
     name = "edit"
     verbose_name = _("Edit Instance")
-    url = "horizon:compute:vminstance2:update"
+    url = "horizon:compute_user:vminstance2:update"
     classes = ("ajax-modal",)
     icon = "pencil"
     policy_rules = (("compute", "compute:update"),)
@@ -496,7 +496,7 @@ class CreateSnapshot(policy.PolicyTargetMixin, tables.LinkAction):
 class ConsoleLink(policy.PolicyTargetMixin, tables.LinkAction):
     name = "console"
     verbose_name = _("Console")
-    url = "horizon:compute:vminstance2:detail"
+    url = "horizon:compute_user:vminstance2:detail"
     classes = ("btn-console",)
     policy_rules = (("compute", "compute_extension:consoles"),)
 
@@ -516,7 +516,7 @@ class ConsoleLink(policy.PolicyTargetMixin, tables.LinkAction):
 class LogLink(policy.PolicyTargetMixin, tables.LinkAction):
     name = "log"
     verbose_name = _("View Log")
-    url = "horizon:compute:vminstance2:detail"
+    url = "horizon:compute_user:vminstance2:detail"
     classes = ("btn-log",)
     policy_rules = (("compute", "compute_extension:console_output"),)
 
@@ -533,7 +533,7 @@ class LogLink(policy.PolicyTargetMixin, tables.LinkAction):
 class ResizeLink(policy.PolicyTargetMixin, tables.LinkAction):
     name = "resize"
     verbose_name = _("Resize Instance")
-    url = "horizon:compute:vminstance2:resize"
+    url = "horizon:compute_user:vminstance2:resize"
     classes = ("ajax-modal", "btn-resize")
     policy_rules = (("compute", "compute:resize"),)
 
@@ -584,7 +584,7 @@ class RebuildInstance(policy.PolicyTargetMixin, tables.LinkAction):
     name = "rebuild"
     verbose_name = _("Rebuild Instance")
     classes = ("btn-rebuild", "ajax-modal")
-    url = "horizon:compute:vminstance2:rebuild"
+    url = "horizon:compute_user:vminstance2:rebuild"
     policy_rules = (("compute", "compute:rebuild"),)
 
     def allowed(self, request, instance):
@@ -601,7 +601,7 @@ class DecryptInstancePassword(tables.LinkAction):
     name = "decryptpassword"
     verbose_name = _("Retrieve Password")
     classes = ("btn-decrypt", "ajax-modal")
-    url = "horizon:compute:vminstance2:decryptpassword"
+    url = "horizon:compute_user:vminstance2:decryptpassword"
 
     def allowed(self, request, instance):
         enable = getattr(settings,
@@ -930,7 +930,7 @@ class UnlockInstance(policy.PolicyTargetMixin, tables.BatchAction):
 class AttachVolume(tables.LinkAction):
     name = "attach_volume"
     verbose_name = _("Attach Volume")
-    url = "horizon:compute:vminstance2:attach_volume"
+    url = "horizon:compute_user:vminstance2:attach_volume"
     classes = ("ajax-modal",)
     policy_rules = (("compute", "compute:attach_volume"),)
 
@@ -944,7 +944,7 @@ class AttachVolume(tables.LinkAction):
 class DetachVolume(AttachVolume):
     name = "detach_volume"
     verbose_name = _("Detach Volume")
-    url = "horizon:compute:vminstance2:detach_volume"
+    url = "horizon:compute_user:vminstance2:detach_volume"
     policy_rules = (("compute", "compute:detach_volume"),)
 
     # This action should be disabled if the instance
@@ -958,7 +958,7 @@ class AttachInterface(policy.PolicyTargetMixin, tables.LinkAction):
     name = "attach_interface"
     verbose_name = _("Attach Interface")
     classes = ("btn-confirm", "ajax-modal")
-    url = "horizon:compute:vminstance2:attach_interface"
+    url = "horizon:compute_user:vminstance2:attach_interface"
     policy_rules = (("compute", "compute_extension:attach_interfaces"),)
 
     def allowed(self, request, instance):
@@ -978,7 +978,7 @@ class DetachInterface(policy.PolicyTargetMixin, tables.LinkAction):
     name = "detach_interface"
     verbose_name = _("Detach Interface")
     classes = ("btn-confirm", "ajax-modal")
-    url = "horizon:compute:vminstance2:detach_interface"
+    url = "horizon:compute_user:vminstance2:detach_interface"
 
     def allowed(self, request, instance):
         if not api.base.is_service_enabled(request, 'network'):
@@ -1000,7 +1000,7 @@ class DetachInterface(policy.PolicyTargetMixin, tables.LinkAction):
 
 
 def get_ips(instance):
-    template_name = 'compute/vminstance2/_instance_ips.html'
+    template_name = 'compute_user/vminstance2/_instance_ips.html'
     ip_groups = {}
 
     for ip_group, addresses in instance.addresses.items():
@@ -1023,7 +1023,7 @@ def get_ips(instance):
 
 def get_flavor(instance):
     if hasattr(instance, "full_flavor"):
-        template_name = 'compute/vminstance2/_instance_flavor.html'
+        template_name = 'compute_user/vminstance2/_instance_flavor.html'
         size_ram = sizeformat.mb_float_format(instance.full_flavor.ram)
         if instance.full_flavor.disk > 0:
             size_disk = sizeformat.diskgbformat(instance.full_flavor.disk)
@@ -1219,7 +1219,7 @@ class InstancesTable(tables.DataTable):
         ("shelved_offloaded", True),
     )
     name = tables.WrappingColumn("name",
-                                 link="horizon:compute:vminstance2:detail",
+                                 link="horizon:compute_user:vminstance2:detail",
                                  verbose_name=_("Instance Name"))
     image_name = tables.Column("image_name",
                                verbose_name=_("Image Name"))

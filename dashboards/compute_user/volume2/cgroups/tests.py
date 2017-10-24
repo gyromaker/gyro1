@@ -19,11 +19,11 @@ from openstack_dashboard.api import cinder
 from openstack_dashboard.test import helpers as test
 
 
-VOLUME_INDEX_URL = reverse('horizon:compute:volume2:index')
+VOLUME_INDEX_URL = reverse('horizon:compute_user:volume2:index')
 VOLUME_CGROUPS_TAB_URL = urlunquote(reverse(
-    'horizon:compute:volume2:cgroups_tab'))
+    'horizon:compute_user:volume2:cgroups_tab'))
 VOLUME_CGROUPS_SNAP_TAB_URL = urlunquote(reverse(
-    'horizon:compute:volume2:cg_snapshots_tab'))
+    'horizon:compute_user:volume2:cg_snapshots_tab'))
 
 
 class ConsistencyGroupTests(test.TestCase):
@@ -62,7 +62,7 @@ class ConsistencyGroupTests(test.TestCase):
             .AndReturn(cgroup)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cgroups:create')
+        url = reverse('horizon:compute_user:volume2:cgroups:create')
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
         self.assertRedirectsNoFollow(res, VOLUME_INDEX_URL)
@@ -101,7 +101,7 @@ class ConsistencyGroupTests(test.TestCase):
             .AndRaise(self.exceptions.cinder)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cgroups:create')
+        url = reverse('horizon:compute_user:volume2:cgroups:create')
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
         self.assertRedirectsNoFollow(res, VOLUME_INDEX_URL)
@@ -119,7 +119,7 @@ class ConsistencyGroupTests(test.TestCase):
                                     force=False)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cgroups:delete',
+        url = reverse('horizon:compute_user:volume2:cgroups:delete',
                       args=[cgroup.id])
         res = self.client.post(url)
         self.assertNoFormErrors(res)
@@ -137,7 +137,7 @@ class ConsistencyGroupTests(test.TestCase):
                                     force=True)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cgroups:delete',
+        url = reverse('horizon:compute_user:volume2:cgroups:delete',
                       args=[cgroup.id])
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
@@ -157,7 +157,7 @@ class ConsistencyGroupTests(test.TestCase):
             AndRaise(self.exceptions.cinder)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cgroups:delete',
+        url = reverse('horizon:compute_user:volume2:cgroups:delete',
                       args=[cgroup.id])
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
@@ -183,7 +183,7 @@ class ConsistencyGroupTests(test.TestCase):
             .AndReturn(cgroup)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cgroups:update',
+        url = reverse('horizon:compute_user:volume2:cgroups:update',
                       args=[cgroup.id])
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
@@ -209,7 +209,7 @@ class ConsistencyGroupTests(test.TestCase):
             .AndReturn(cgroup)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cgroups:update',
+        url = reverse('horizon:compute_user:volume2:cgroups:update',
                       args=[cgroup.id])
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
@@ -233,7 +233,7 @@ class ConsistencyGroupTests(test.TestCase):
             .AndReturn(cgroup)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cgroups:update',
+        url = reverse('horizon:compute_user:volume2:cgroups:update',
                       args=[cgroup.id])
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
@@ -257,7 +257,7 @@ class ConsistencyGroupTests(test.TestCase):
             .AndRaise(self.exceptions.cinder)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cgroups:update',
+        url = reverse('horizon:compute_user:volume2:cgroups:update',
                       args=[cgroup.id])
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
@@ -272,7 +272,7 @@ class ConsistencyGroupTests(test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cgroups:detail',
+        url = reverse('horizon:compute_user:volume2:cgroups:detail',
                       args=[cgroup.id])
         res = self.client.get(url)
         self.assertNoFormErrors(res)
@@ -294,7 +294,7 @@ class ConsistencyGroupTests(test.TestCase):
             .AndReturn(cg_snapshot)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cgroups:create_snapshot',
+        url = reverse('horizon:compute_user:volume2:cgroups:create_snapshot',
                       args=[cgroup.id])
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
@@ -315,7 +315,7 @@ class ConsistencyGroupTests(test.TestCase):
             .AndReturn(cgroup)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:cgroups:clone_cgroup',
+        url = reverse('horizon:compute_user:volume2:cgroups:clone_cgroup',
                       args=[cgroup.id])
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)

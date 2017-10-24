@@ -55,7 +55,7 @@ class CreateBackupForm(forms.SelfHandlingForm):
             return backup
 
         except Exception:
-            redirect = reverse('horizon:compute:volume2:index')
+            redirect = reverse('horizon:compute_user:volume2:index')
             exceptions.handle(request,
                               _('Unable to create volume backup.'),
                               redirect=redirect)
@@ -74,7 +74,7 @@ class RestoreBackupForm(forms.SelfHandlingForm):
             volumes = api.cinder.volume_list(request)
         except Exception:
             msg = _('Unable to lookup volume or backup information.')
-            redirect = reverse('horizon:compute:volume2:index')
+            redirect = reverse('horizon:compute_user:volume2:index')
             exceptions.handle(request, msg, redirect=redirect)
             raise exceptions.Http302(redirect)
 
@@ -104,5 +104,5 @@ class RestoreBackupForm(forms.SelfHandlingForm):
             return restore
         except Exception:
             msg = _('Unable to restore backup.')
-            redirect = reverse('horizon:compute:volume2:index')
+            redirect = reverse('horizon:compute_user:volume2:index')
             exceptions.handle(request, msg, redirect=redirect)

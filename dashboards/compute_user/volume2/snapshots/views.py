@@ -32,10 +32,10 @@ from openstack_dashboard.dashboards.compute_user.volume2 \
 class UpdateView(forms.ModalFormView):
     form_class = vol_snapshot_forms.UpdateForm
     form_id = "update_snapshot_form"
-    template_name = 'compute/volume2/snapshots/update.html'
+    template_name = 'compute_user/volume2/snapshots/update.html'
     submit_label = _("Save Changes")
-    submit_url = "horizon:compute:volume2:snapshots:update"
-    success_url = reverse_lazy("horizon:compute:volume2:index")
+    submit_url = "horizon:compute_user:volume2:snapshots:update"
+    success_url = reverse_lazy("horizon:compute_user:volume2:index")
     page_title = _("Edit Snapshot")
 
     @memoized.memoized_method
@@ -46,7 +46,7 @@ class UpdateView(forms.ModalFormView):
                                                           snap_id)
         except Exception:
             msg = _('Unable to retrieve volume snapshot.')
-            url = reverse('horizon:compute:volume2:index')
+            url = reverse('horizon:compute_user:volume2:index')
             exceptions.handle(self.request, msg, redirect=url)
         return self._object
 
@@ -68,7 +68,7 @@ class DetailView(tabs.TabView):
     tab_group_class = vol_snapshot_tabs.SnapshotDetailTabs
     template_name = 'horizon/common/_detail.html'
     page_title = "{{ snapshot.name|default:snapshot.id }}"
-    volume_url = 'horizon:compute:volume2:volumes:detail'
+    volume_url = 'horizon:compute_user:volume2:volumes:detail'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -96,7 +96,7 @@ class DetailView(tabs.TabView):
 
     @staticmethod
     def get_redirect_url():
-        return reverse('horizon:compute:volume2:index')
+        return reverse('horizon:compute_user:volume2:index')
 
     def get_tabs(self, request, *args, **kwargs):
         snapshot = self.get_data()

@@ -34,9 +34,9 @@ from openstack_dashboard.test import helpers as test
 from openstack_dashboard.usage import quotas
 
 
-VOLUME_INDEX_URL = reverse('horizon:compute:volume2:index')
+VOLUME_INDEX_URL = reverse('horizon:compute_user:volume2:index')
 VOLUME_VOLUMES_TAB_URL = urlunquote(reverse(
-    'horizon:compute:volume2:volumes_tab'))
+    'horizon:compute_user:volume2:volumes_tab'))
 SEARCH_OPTS = dict(status=api.cinder.VOLUME_STATE_AVAILABLE)
 
 
@@ -108,7 +108,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
 
@@ -181,7 +181,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         res = self.client.post(url, formData)
 
         redirect_url = VOLUME_VOLUMES_TAB_URL
@@ -251,7 +251,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         res = self.client.post(url, formData)
 
         redirect_url = VOLUME_VOLUMES_TAB_URL
@@ -301,7 +301,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         self.mox.ReplayAll()
 
         # get snapshot from url
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         res = self.client.post("?".join([url,
                                          "snapshot_id=" + str(snapshot.id)]),
                                formData)
@@ -375,7 +375,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
                              source_volid=volume.id).AndReturn(volume)
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         redirect_url = VOLUME_VOLUMES_TAB_URL
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
@@ -451,7 +451,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         self.mox.ReplayAll()
 
         # get snapshot from dropdown list
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         res = self.client.post(url, formData)
 
         redirect_url = VOLUME_VOLUMES_TAB_URL
@@ -497,7 +497,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         res = self.client.post("?".join([url,
                                          "snapshot_id=" + str(snapshot.id)]),
                                formData, follow=True)
@@ -555,7 +555,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         self.mox.ReplayAll()
 
         # get image from url
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         res = self.client.post("?".join([url,
                                          "image_id=" + str(image.id)]),
                                formData)
@@ -632,7 +632,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         self.mox.ReplayAll()
 
         # get image from dropdown list
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         res = self.client.post(url, formData)
 
         redirect_url = VOLUME_VOLUMES_TAB_URL
@@ -683,7 +683,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         res = self.client.post("?".join([url,
                                          "image_id=" + str(image.id)]),
                                formData, follow=True)
@@ -738,7 +738,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         res = self.client.post("?".join([url,
                                          "image_id=" + str(image.id)]),
                                formData, follow=True)
@@ -835,7 +835,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         res = self.client.post(url, formData)
 
         expected_error = [u'A volume of 5000GiB cannot be created as you only'
@@ -914,7 +914,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:create')
+        url = reverse('horizon:compute_user:volume2:volumes:create')
         res = self.client.post(url, formData)
 
         expected_error = [u'You are already using all of your available'
@@ -1005,7 +1005,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         api.nova.server_list(IsA(http.HttpRequest)).AndReturn([servers, False])
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:attach',
+        url = reverse('horizon:compute_user:volume2:volumes:attach',
                       args=[volume.id])
         res = self.client.get(url)
         msg = 'Volume %s on instance %s' % (volume.name, servers[0].name)
@@ -1038,7 +1038,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         api.nova.server_list(IsA(http.HttpRequest)).AndReturn([servers, False])
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:attach',
+        url = reverse('horizon:compute_user:volume2:volumes:attach',
                       args=[volume.id])
         res = self.client.get(url)
         form = res.context['form']
@@ -1057,7 +1057,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         api.nova.server_list(IsA(http.HttpRequest)).AndReturn([servers, False])
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:attach',
+        url = reverse('horizon:compute_user:volume2:volumes:attach',
                       args=[volume.id])
         res = self.client.get(url)
         # Assert the device field is hidden.
@@ -1080,7 +1080,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:attach',
+        url = reverse('horizon:compute_user:volume2:volumes:attach',
                       args=[volume.id])
         res = self.client.get(url)
 
@@ -1128,7 +1128,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         snapshot_action = self._get_volume_row_action_from_ajax(
             res, 'snapshots', volume.id)
-        self.assertEqual('horizon:compute:volume2:volumes:create_snapshot',
+        self.assertEqual('horizon:compute_user:volume2:volumes:create_snapshot',
                          snapshot_action.url)
         self.assertEqual(set(['ajax-modal']), set(snapshot_action.classes))
         self.assertEqual('Create Snapshot',
@@ -1185,7 +1185,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         self.mox.ReplayAll()
 
         res = self.client.get(VOLUME_INDEX_URL)
-        self.assertTemplateUsed(res, 'compute/volume2/index.html')
+        self.assertTemplateUsed(res, 'compute_user/volume2/index.html')
 
         volumes = res.context['volumes_table'].data
         self.assertItemsEqual(volumes, self.cinder_volumes.list())
@@ -1196,7 +1196,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
                          set(create_action.classes))
         self.assertEqual('Create Volume',
                          six.text_type(create_action.verbose_name))
-        self.assertEqual('horizon:compute:volume2:volumes:create',
+        self.assertEqual('horizon:compute_user:volume2:volumes:create',
                          create_action.url)
         self.assertEqual((('volume', 'volume:create'),),
                          create_action.policy_rules)
@@ -1227,7 +1227,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         self.mox.ReplayAll()
 
         res = self.client.get(VOLUME_INDEX_URL)
-        self.assertTemplateUsed(res, 'compute/volume2/index.html')
+        self.assertTemplateUsed(res, 'compute_user/volume2/index.html')
 
         volumes = res.context['volumes_table'].data
         self.assertItemsEqual(volumes, self.cinder_volumes.list())
@@ -1257,7 +1257,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:detail',
+        url = reverse('horizon:compute_user:volume2:volumes:detail',
                       args=[volume.id])
         res = self.client.get(url)
 
@@ -1277,7 +1277,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:encryption_detail',
+        url = reverse('horizon:compute_user:volume2:volumes:encryption_detail',
                       args=[volume.id])
         res = self.client.get(url)
 
@@ -1305,7 +1305,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:encryption_detail',
+        url = reverse('horizon:compute_user:volume2:volumes:encryption_detail',
                       args=[volume.id])
         res = self.client.get(url)
 
@@ -1350,7 +1350,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:detail',
+        url = reverse('horizon:compute_user:volume2:volumes:detail',
                       args=[volume.id])
         res = self.client.get(url)
 
@@ -1378,7 +1378,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
                     'description': volume.description,
                     'bootable': False}
 
-        url = reverse('horizon:compute:volume2:volumes:update',
+        url = reverse('horizon:compute_user:volume2:volumes:update',
                       args=[volume.id])
         res = self.client.post(url, formData)
         self.assertRedirectsNoFollow(res, VOLUME_INDEX_URL)
@@ -1405,7 +1405,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
                     'description': volume.description,
                     'bootable': False}
 
-        url = reverse('horizon:compute:volume2:volumes:update',
+        url = reverse('horizon:compute_user:volume2:volumes:update',
                       args=[volume.id])
         res = self.client.post(url, formData)
         self.assertRedirectsNoFollow(res, VOLUME_INDEX_URL)
@@ -1432,7 +1432,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
                     'description': 'update bootable flag',
                     'bootable': True}
 
-        url = reverse('horizon:compute:volume2:volumes:update',
+        url = reverse('horizon:compute_user:volume2:volumes:update',
                       args=[volume.id])
         res = self.client.post(url, formData)
         self.assertRedirectsNoFollow(res, VOLUME_INDEX_URL)
@@ -1468,7 +1468,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:upload_to_image',
+        url = reverse('horizon:compute_user:volume2:volumes:upload_to_image',
                       args=[volume.id])
         res = self.client.post(url, form_data)
 
@@ -1501,7 +1501,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:extend',
+        url = reverse('horizon:compute_user:volume2:volumes:extend',
                       args=[volume.id])
         res = self.client.post(url, formData)
 
@@ -1527,7 +1527,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:extend',
+        url = reverse('horizon:compute_user:volume2:volumes:extend',
                       args=[volume.id])
         res = self.client.post(url, formData)
         self.assertFormErrors(res, 1,
@@ -1582,7 +1582,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:retype',
+        url = reverse('horizon:compute_user:volume2:volumes:retype',
                       args=[volume.id])
         res = self.client.post(url, form_data)
 
@@ -1656,7 +1656,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         self.mox.ReplayAll()
 
-        url = reverse('horizon:compute:volume2:volumes:extend',
+        url = reverse('horizon:compute_user:volume2:volumes:extend',
                       args=[volume.id])
         res = self.client.post(url, formData)
         self.assertFormError(res, "form", "new_size",
@@ -1713,7 +1713,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         self.mox.ReplayAll()
 
         # Create a transfer for the first available volume
-        url = reverse('horizon:compute:volume2:volumes:create_transfer',
+        url = reverse('horizon:compute_user:volume2:volumes:create_transfer',
                       args=[volToTransfer.id])
         res = self.client.post(url, formData)
         self.assertNoFormErrors(res)
@@ -1770,7 +1770,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
         self.mox.ReplayAll()
 
         formData = {'transfer_id': transfer.id, 'auth_key': transfer.auth_key}
-        url = reverse('horizon:compute:volume2:volumes:accept_transfer')
+        url = reverse('horizon:compute_user:volume2:volumes:accept_transfer')
         res = self.client.post(url, formData, follow=True)
         self.assertNoFormErrors(res)
 
@@ -1786,7 +1786,7 @@ class VolumeViewTests(test.ResetImageAPIVersionMixin, test.TestCase):
 
         filename = "{}.txt".format(slugify(transfer.id))
 
-        url = reverse('horizon:compute:volume2:volumes:'
+        url = reverse('horizon:compute_user:volume2:volumes:'
                       'download_transfer_creds',
                       kwargs={'transfer_id': transfer.id,
                               'auth_key': transfer.auth_key})

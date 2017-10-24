@@ -29,6 +29,24 @@ msgstr ""
 "X-Generator: Zanata 3.9.6\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
+
+
+
+msgid "Meeting"
+msgstr "회의록"
+
+msgid "Resourcecenter"
+msgstr "자료실"
+
+msgid "Mydashboard"
+msgstr "게시판"
+
+msgid "Mypanel"
+msgstr "공지사항"
+
+msgid "Hypervisor2"
+msgstr "하이퍼바이저"
+
 msgid "Networks2"
 msgstr "네트워크"
 

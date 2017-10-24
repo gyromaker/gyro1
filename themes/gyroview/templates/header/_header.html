@@ -29,12 +29,12 @@
       {% if request.user.is_superuser %}
         <a href='/dashboard/compute/'>컴퓨트</a>
         <a href='/dashboard/network/'>네트워크</a>
-        <a href='/dashboard/manager/'>관리자</a>
       {% else %}
         <a href='/dashboard/compute_user/'>컴퓨트</a>
         <a href='/dashboard/network_user/'>네트워크</a>
-        <a href='/dashboard/manager_user/'>관리자</a>
       {% endif %}
+        <a href='/dashboard/manager/'>관리자</a>
+        <a href='/dashboard/mydashboard/'>게시판</a>
       </div>
         
       <ul class="nav navbar-nav">

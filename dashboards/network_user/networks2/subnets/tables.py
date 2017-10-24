@@ -83,7 +83,7 @@ class DeleteSubnet(SubnetPolicyTargetMixin, CheckNetworkEditable,
             msg = _('Failed to delete subnet %s') % obj_id
             LOG.info(msg)
             network_id = self.table.kwargs['network_id']
-            redirect = reverse('horizon:network:networks2:detail',
+            redirect = reverse('horizon:network_user:networks2:detail',
                                args=[network_id])
             exceptions.handle(request, msg, redirect=redirect)
 
@@ -92,7 +92,7 @@ class CreateSubnet(SubnetPolicyTargetMixin, CheckNetworkEditable,
                    tables.LinkAction):
     name = "create"
     verbose_name = _("Create Subnet")
-    url = "horizon:network:networks2:addsubnet"
+    url = "horizon:network_user:networks2:addsubnet"
     classes = ("ajax-modal",)
     icon = "plus"
     policy_rules = (("network", "create_subnet"),)
@@ -119,7 +119,7 @@ class UpdateSubnet(SubnetPolicyTargetMixin, CheckNetworkEditable,
                    tables.LinkAction):
     name = "update"
     verbose_name = _("Edit Subnet")
-    url = "horizon:network:networks2:editsubnet"
+    url = "horizon:network_user:networks2:editsubnet"
     classes = ("ajax-modal",)
     icon = "pencil"
     policy_rules = (("network", "update_subnet"),)
@@ -133,11 +133,11 @@ class SubnetsTable(tables.DataTable):
     name = tables.WrappingColumn(
         "name_or_id",
         verbose_name=_("Name"),
-        link='horizon:network:networks2:subnets:detail')
+        link='horizon:network_user:networks2:subnets:detail')
     cidr = tables.Column("cidr", verbose_name=_("Network Address"))
     ip_version = tables.Column("ipver_str", verbose_name=_("IP Version"))
     gateway_ip = tables.Column("gateway_ip", verbose_name=_("Gateway IP"))
-    failure_url = reverse_lazy('horizon:network:networks2:index')
+    failure_url = reverse_lazy('horizon:network_user:networks2:index')
 
     @memoized.memoized_method
     def _get_network(self):
