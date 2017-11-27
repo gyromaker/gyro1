@@ -1,5 +1,7 @@
 if [ -z "$BASH_VERSION" ]; then exec bash -x "$0" "$@"; fi
 
+yum install python-pip -y
+
 GYRO=$(cd "$(dirname "$0")" && pwd)
 GYROCACHE=$GYRO/cache
 HORIZON=/usr/local/horizon
